@@ -4,41 +4,9 @@
 
 Freshman Schedge Generator is a front-end project using [Schedge API](https://github.com/BUGS-NYU/schedge), to develop a website to automatically generate freshman schedule for NYU CAS student. The project serve as a collaborative effort between NYU students. We want to offer this as a learning experience for new programmers to learn about web application development as well as open source contributions. 
 
-## Setup
-- [node](https://github.com/nodejs/node.git)
-- [npm](https://github.com/npm)
-- [React](https://reactjs.org/)
-- [styled-components](https://styled-components.com/)
-- [axios](https://github.com/axios/axios)
+## Contributing
+Please read CONTRIBUTING.md.
 
-Please fork the repository from Github and clone a local copy to your machine. After forking, cd into your perferred directory and run on your terminal:
-
-```
-git clone https://github.com/{YOUR-USER-NAME}/freshman-schedge-generator.git
-```
-
-Then following these command if you haven't had any installed. 
-
-## Installation
-
-### MacOS
-If you have [homebrew](https://brew.sh/). If not, please go to the website and install homebrew. Then install node.
-
-```
-brew install node 
-```
-
-Then cd into the local copy you have made and run
-```
-npm install                               //installing all dependecies
-npm install --save styled-components     // installing styled-components if not installed
-npm install --save axios                 // installing axios if not installed
-```
-
-## Setup Issue
-If you have trouble with Eslint version. Please follow the suggested method in the error message. If it still doesn't work, you can ignore it by doing the following:
-- Creating a `.env` file in the directory
-- Add `SKIP_PREFLIGHT_CHECK=true` to the file.
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
