@@ -1,20 +1,21 @@
 
 const axios = require('axios');
 
-var data = null;
+async function my_async_function() {
+    try {
+        const data = await axios.get('https://schedge.a1liu.com/2020/FA/UA/CORE')
+        //awaits for the promise to return the data
+        console.log(data.data);
+        return data.data;
+    } catch(e) {
+        console.log(e);
+        return undefined;
+    }
+}
 
-// Make a request for a user with a given ID
-axios.get('https://schedge.a1liu.com/2020/FA/UA/CORE')
-  .then(function (response) {
-    // handle success
-    data = response.data
-    console.log(data);
-  })
-  .catch(function (error) {
-    // handle error
-    console.log(error);
-  })
-  .then(function () {
-    // always executed
-  });
+//async functions always return a promise
 
+my_async_function();
+
+
+//'https://schedge.a1liu.com/2020/FA/UA/CORE'
