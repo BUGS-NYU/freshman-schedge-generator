@@ -42,9 +42,22 @@ async function my_async_function() {
         allSections.push(expressiveCulture);
         allSections.push(quantitativeReasoning);
 
-        console.log(allSections);
+        randomSectionArray = [];
 
-        return allSections;
+        let random = twoRandomIndices(allSections.length);
+
+        randomCourseOne = allSections[random[0]];
+        randomCourseTwo = allSections[random[1]];
+
+        randomSectionOne = randomCourseOne[randomIndex(randomCourseOne.length)];
+        randomSectionTwo = randomCourseTwo[randomIndex(randomCourseTwo.length)];
+
+        randomSectionArray.push(randomSectionOne);
+        randomSectionArray.push(randomSectionTwo);
+
+       console.log(randomSectionArray);
+
+        return randomSectionArray;
     } catch(e) {
         console.log(e);
         return undefined;
@@ -53,6 +66,17 @@ async function my_async_function() {
 
 function randomIndex(size) {
     return Math.floor(Math.random() * size);
+}
+
+function twoRandomIndices(size) {
+    let one = Math.floor(Math.random() * size);
+    let two = Math.floor(Math.random() * size);
+
+    while (one == two) {
+        two = Math.floor(Math.random() * size);
+    }
+
+    return [one, two];
 }
 
 
