@@ -28,6 +28,21 @@
   color: #61dafb;
 }
 
+.button
+{
+    font-size: 20px;
+    color:green;
+    border-color: black;
+    height:40px;
+    width:100px;
+
+}
+.form-check
+{
+    color: purple;
+}
+
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);

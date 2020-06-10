@@ -2,13 +2,38 @@ import React from 'react';
 const SeminarComponent = ()=>{
   return (
     <div style = {{color:'blue'}}>
-      Do you want to take a seminar?
-      <br></br>
-    <input type="checkbox" id="option2" name="option2" value="two"/>
-    <label for="vehicle1"> No</label>
-    <br></br>
-    <input type="checkbox" id="option1" name="option1" value="one"/>
-    <label for="vehicle1"> Yes</label>
+    <form>
+        Do you want to take a seminar?
+        <div className="form-check">
+          <label>
+            <input
+              type="radio"
+              name="react-tips"
+              value="option1"
+              className="form-check-input"
+            />
+            Yes
+          </label>
+        </div>
+
+        <div className="form-check">
+          <label>
+            <input
+              type="radio"
+              name="react-tips"
+              value="option2"
+              className="form-check-input"
+            />
+            No
+          </label>
+        </div>
+
+        <div className="form-group">
+          <button className="button" type="submit">
+            Submit
+          </button>
+        </div>
+      </form>
     </div>
   );
 }
