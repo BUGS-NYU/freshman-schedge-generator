@@ -45,34 +45,46 @@ async function randomCourses() {
         allSections.push(quantitativeReasoning);
 
 
-        let randomSectionArray = [];
 
-        let random = twoRandomIndices(allSections.length);
 
-        let randomCourseOne = allSections[random[0]];
-        let randomCourseTwo = allSections[random[1]];
-
-        let randomSectionOne = randomCourseOne[randomIndex(randomCourseOne.length)];
-        let randomSectionTwo = randomCourseTwo[randomIndex(randomCourseTwo.length)];
-
-        randomSectionArray.push(randomSectionOne);
-        randomSectionArray.push(randomSectionTwo);
-
-       console.log(randomSectionArray);
-
-        return randomSectionArray;
+        return allSections;
     } catch(e) {
         console.log(e);
         return undefined;
     }
 }
 
+function randomSectionArr(allSections) {
+    let randomSectionArray = [];
+
+    let random = twoRandomIndices(allSections.length);
+
+    let randomCourseOne = allSections[random[0]];
+    let randomCourseTwo = allSections[random[1]];
+
+    let randomSectionOne = randomCourseOne[randomIndex(randomCourseOne.length)];
+    let randomSectionTwo = randomCourseTwo[randomIndex(randomCourseTwo.length)];
+
+    randomSectionArray.push(randomSectionOne);
+    randomSectionArray.push(randomSectionTwo);
+
+    return randomSectionArray;
+
+}
+
 const Fetcher = () => {
     const [courses, setCourses] = useState([]);
+    const [randomSection, setRandomSection] = useState([]);
 
     async function setCoursesAsync(event) {
-        const randomArray = await randomCourses();
-        setCourses(randomArray);
+
+        if (courses.length === 0) {
+            const randomArray = await randomCourses();
+            setCourses(randomArray);
+        }
+
+        setRandomSection(randomSectionArr(courses));
+
     }
 
     return (
