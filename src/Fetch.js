@@ -1,12 +1,10 @@
+import React, {useState} from 'react';
 
-const axios = require('axios');
-
-async function my_async_function() {
+async function randomCourses() {
     try {
-        const data = await axios.get('https://schedge.a1liu.com/2020/FA/UA/CORE')
+        const data = await fetch('https://schedge.a1liu.com/2020/FA/UA/CORE')
         //awaits for the promise to return the data
-        const courses = data.data;
-        console.log(courses);
+        const courses = await data.json();
 
         let physicalScience = [];
         let lifeScience = [];
@@ -15,8 +13,12 @@ async function my_async_function() {
         let expressiveCulture = [];
         let quantitativeReasoning = [];
 
+        let i = 0;
+
+
         for (i = 0; i < courses.length; i++) {
             const id = parseInt(courses[i].deptCourseId);
+
 
             if (id < 300 && id >= 200) {
                 physicalScience = physicalScience.concat(courses[i].sections);
@@ -42,15 +44,16 @@ async function my_async_function() {
         allSections.push(expressiveCulture);
         allSections.push(quantitativeReasoning);
 
-        randomSectionArray = [];
+
+        let randomSectionArray = [];
 
         let random = twoRandomIndices(allSections.length);
 
-        randomCourseOne = allSections[random[0]];
-        randomCourseTwo = allSections[random[1]];
+        let randomCourseOne = allSections[random[0]];
+        let randomCourseTwo = allSections[random[1]];
 
-        randomSectionOne = randomCourseOne[randomIndex(randomCourseOne.length)];
-        randomSectionTwo = randomCourseTwo[randomIndex(randomCourseTwo.length)];
+        let randomSectionOne = randomCourseOne[randomIndex(randomCourseOne.length)];
+        let randomSectionTwo = randomCourseTwo[randomIndex(randomCourseTwo.length)];
 
         randomSectionArray.push(randomSectionOne);
         randomSectionArray.push(randomSectionTwo);
@@ -64,6 +67,19 @@ async function my_async_function() {
     }
 }
 
+const Fetcher = () => {
+    const [courses, setCourses] = useState([]);
+
+    async function setCoursesAsync(event) {
+        const randomArray = await randomCourses();
+        setCourses(randomArray);
+    }
+
+    return (
+        <button onClick={setCoursesAsync}/>
+        )
+    }
+
 function randomIndex(size) {
     return Math.floor(Math.random() * size);
 }
@@ -72,7 +88,7 @@ function twoRandomIndices(size) {
     let one = Math.floor(Math.random() * size);
     let two = Math.floor(Math.random() * size);
 
-    while (one == two) {
+    while (one === two) {
         two = Math.floor(Math.random() * size);
     }
 
@@ -84,7 +100,7 @@ function twoRandomIndices(size) {
 
 //async functions always return a promise
 
-my_async_function();
+export default Fetcher;
 
 
 //'https://schedge.a1liu.com/2020/FA/UA/CORE'
