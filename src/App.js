@@ -1,12 +1,12 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
-import SeminarComponent from './SeminarComponent';
+import Seminar from './Seminar';
 
 const App=() =>{
   return (
     <div className="App">
-      <SeminarComponent/>
+      <Seminar/>
     </div>
 
   );

@@ -1,5 +1,11 @@
 import React from 'react';
-const SeminarComponent = ()=>{
+const Seminar = ()=>{
+  const[answer,setAnswer] = React.useState();
+
+  const handler = (e) => {
+    setAnswer(e.target.value)
+    console.log(e.target.value)
+  }
   return (
     <div style = {{color:'blue'}}>
     <form>
@@ -11,6 +17,7 @@ const SeminarComponent = ()=>{
               name="react-tips"
               value="option1"
               className="form-check-input"
+              onChange = {handler}
             />
             Yes
           </label>
@@ -23,6 +30,7 @@ const SeminarComponent = ()=>{
               name="react-tips"
               value="option2"
               className="form-check-input"
+              onChange = {handler}
             />
             No
           </label>
@@ -39,4 +47,4 @@ const SeminarComponent = ()=>{
 }
 
 
-export default SeminarComponent;
+export default Seminar;
