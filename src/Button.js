@@ -17,7 +17,6 @@ transition: .2s filter;
 `
 // you always pass down a handle and you receive an on
 function Button({onClick, children}) {
-  console.log(onClick);
   return (
     <StyledButton onClick={onClick}>
 {children}
