@@ -5,6 +5,7 @@ const Seminar = ()=>{
   const handler = (e) => {
     setAnswer(e.target.value)
     console.log(e.target.value)
+    console.log(answer)
   }
   return (
     <div style = {{color:'blue'}}>
@@ -17,7 +18,8 @@ const Seminar = ()=>{
               name="react-tips"
               value="option1"
               className="form-check-input"
-              onChange = {handler}
+              onClick = {()=>{setAnswer("Yes")}}
+              checked = {answer === "Yes"}
             />
             Yes
           </label>
@@ -30,7 +32,8 @@ const Seminar = ()=>{
               name="react-tips"
               value="option2"
               className="form-check-input"
-              onChange = {handler}
+              onClick = {()=>{setAnswer("No")}}
+              checked = {answer === "No"}
             />
             No
           </label>
