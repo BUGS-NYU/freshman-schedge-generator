@@ -18,7 +18,7 @@ const Seminar = ()=>{
               name="react-tips"
               value="option1"
               className="form-check-input"
-              onClick = {()=>{setAnswer("Yes")}}
+              onChange = {()=>{setAnswer("Yes")}}
               checked = {answer === "Yes"}
             />
             Yes
@@ -32,7 +32,7 @@ const Seminar = ()=>{
               name="react-tips"
               value="option2"
               className="form-check-input"
-              onClick = {()=>{setAnswer("No")}}
+              onChange = {()=>{setAnswer("No")}}
               checked = {answer === "No"}
             />
             No
