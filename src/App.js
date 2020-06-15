@@ -1,7 +1,7 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
-import MajorForm from './MajorForm'
+import React from "react";
+import logo from "./logo.svg";
+import "./App.css";
+import MajorForm from "./MajorForm";
 
 function App() {
   return (
