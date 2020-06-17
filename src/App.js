@@ -3,6 +3,8 @@ import logo from "./logo.svg";
 import "./App.css";
 import MajorForm from "./MajorForm";
 
+import Button from "./Button";
+
 function App() {
   return (
     <div className="App">
@@ -19,6 +21,7 @@ function App() {
         >
           Learn React
         </a>
+        <br />
         <MajorForm></MajorForm>
       </header>
     </div>
