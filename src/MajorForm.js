@@ -11,9 +11,6 @@ const StyledInput = styled.input`
   font-size: 20px;
   border-radius: 5px;
   transition: 0.2s filter;
-  :hover {
-    filter: brightness(75%);
-  }
 `;
 
 function MajorForm() {
@@ -33,7 +30,7 @@ function MajorForm() {
   return (
     <form onSubmit={handleSubmit}>
       <select onChange={handleChange}>
-        <option value="nothing :(">Choose a major</option>
+        <option value="nothing">Choose a major</option>
         <option value="Computer Science">CS</option>
         <option value="English">Eng</option>
         <option value="Chemistry">Chem</option>
@@ -46,7 +43,6 @@ function MajorForm() {
           setSearch(event.target.value);
         }}
       />
-      <br /> <br />
       <Button>Submit</Button>
     </form>
   );

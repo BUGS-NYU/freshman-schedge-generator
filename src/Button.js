@@ -1,7 +1,6 @@
 import React from "react";
 import logo from "./logo.svg";
 import styled from "styled-components";
-import "./App.css";
 
 const StyledButton = styled.button`
   background-color: #90caf9;
