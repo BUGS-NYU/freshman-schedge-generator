@@ -1,11 +1,11 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
-import Major from './Major'
+import FetchMajor from './FetchMajor'
 
 function App() {
   return (
-    <Major></Major>
+    <FetchMajor></FetchMajor>
   );
 }
 
