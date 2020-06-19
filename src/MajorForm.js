@@ -1,17 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import Button from "./Button";
-
-const StyledInput = styled.input`
-  border: 2px solid black;
-  padding-left: 10px;
-  color: black;
-  width: 300px;
-  height: 35px;
-  font-size: 20px;
-  border-radius: 5px;
-  transition: 0.2s filter;
-`;
+import StyledInput from "./Input";
 
 function MajorForm() {
   const [major, setMajor] = useState("nothing");
