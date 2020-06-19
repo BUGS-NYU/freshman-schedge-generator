@@ -1,14 +1,33 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
-import Fetcher from './Fetch';
+import React from "react";
+import "./App.css";
+import logo from "./logo.jpg";
+import ScheduleGenerator from './Fetch';
+import styled from "styled-components";
+import Majors from './Majors';
+import SeminarForm from "./SeminarForm";
 
-function App() {
+import MajorForm from "./MajorForm";
+import StyledHeader from "./Header";
+import Button from "./Button";
+
+const MainContent = styled.div`
+  background-image: url("${logo}");
+  background-repeat: cover;
+  height: calc(100vh - 50px);
+`;
+
+const App = () => {
   return (
-    <div className="App">
-      <Fetcher/>
+    <div>
+      <StyledHeader> ALBERTA</StyledHeader>
+      <MainContent>
+        <ScheduleGenerator />
+        <MajorForm></MajorForm>
+        <SeminarForm />
+        <Majors></Majors>
+      </MainContent>
     </div>
   );
-}
+};
 
 export default App;
