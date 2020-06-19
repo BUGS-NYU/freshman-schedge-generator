@@ -1,9 +1,9 @@
-import React, { useState } from "react";
+import React, {useState} from "react";
 
 async function getRandomCourses() {
   try {
     const data = await fetch("https://schedge.a1liu.com/2020/FA/UA/CORE");
-    //awaits for the promise to return the data
+    // awaits for the promise to return the data
     const courses = await data.json();
 
     let physicalScience = [];
@@ -29,9 +29,8 @@ async function getRandomCourses() {
       } else if (id >= 700) {
         expressiveCulture = expressiveCulture.concat(courses[i].sections);
       } else {
-        quantitativeReasoning = quantitativeReasoning.concat(
-          courses[i].sections
-        );
+        quantitativeReasoning =
+            quantitativeReasoning.concat(courses[i].sections);
       }
     }
 
@@ -58,8 +57,10 @@ function getRandomSections(allSubjects) {
   let randomSubjectOne = allSubjects[random[0]];
   let randomSubjectTwo = allSubjects[random[1]];
 
-  let randomSectionOne = randomSubjectOne[getRandomIndex(randomSubjectOne.length)];
-  let randomSectionTwo = randomSubjectTwo[getRandomIndex(randomSubjectTwo.length)];
+  let randomSectionOne =
+      randomSubjectOne[getRandomIndex(randomSubjectOne.length)];
+  let randomSectionTwo =
+      randomSubjectTwo[getRandomIndex(randomSubjectTwo.length)];
 
   randomSectionArray.push(randomSectionOne);
   randomSectionArray.push(randomSectionTwo);
@@ -86,13 +87,15 @@ function getRandomIndex(size) {
 }
 
 function twoRandomIndices(size) {
-  let one = Math.floor(Math.random() * size);
+  const one = Math.floor(Math.random() * size);
   let two = Math.floor(Math.random() * size);
 
-  while (one === two) {
+  let counter = 0;
+  for ( ; one === two && counter < 10; counter++) {
     two = Math.floor(Math.random() * size);
   }
 
+  two = (one + 1) % size;
   return [one, two];
 }
 
@@ -101,4 +104,3 @@ function twoRandomIndices(size) {
 export default ScheduleGenerator;
 
 //'https://schedge.a1liu.com/2020/FA/UA/CORE'
-
