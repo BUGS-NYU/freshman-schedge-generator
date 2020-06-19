@@ -1,7 +1,7 @@
 import React from "react";
 import logo from "./logo.svg";
 import "./App.css";
-import Seminar from "./Seminar";
+import SeminarForm from "./SeminarForm";
 
 const App = () => {
   return (
