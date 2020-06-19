@@ -1,6 +1,15 @@
-import React from "react";
+import React, { useState } from "react";
+import styled from "styled-components";
+
+const Form = styled.div`
+  color: red;
+`;
+const SubmitButton = styled.button`
+  color: blue;
+`;
+
 const SeminarForm = () => {
-  const [answer, setAnswer] = React.useState();
+  const [answer, setAnswer] = useState("None");
 
   const handleSubmit = (e) => {
     setAnswer(e.target.value);
@@ -8,15 +17,14 @@ const SeminarForm = () => {
     console.log(answer);
   };
   return (
-    <div style={{ color: "blue" }}>
-      <form>
+    <div>
+      <Form>
         Do you want to take a seminar?
         <div className="form-check">
           <label>
             <input
               type="radio"
-              name="react-tips"
-              value="option1"
+              value="Yes"
               className="form-check-input"
               onChange={() => {
                 setAnswer("Yes");
@@ -30,8 +38,7 @@ const SeminarForm = () => {
           <label>
             <input
               type="radio"
-              name="react-tips"
-              value="option2"
+              value="Yes"
               className="form-check-input"
               onChange={() => {
                 setAnswer("No");
@@ -41,12 +48,8 @@ const SeminarForm = () => {
             No
           </label>
         </div>
-        <div className="form-group">
-          <button className="button" type="submit">
-            Submit
-          </button>
-        </div>
-      </form>
+        <SubmitButton>Submit</SubmitButton>
+      </Form>
     </div>
   );
 };
