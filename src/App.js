@@ -1,12 +1,16 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
-import Majors from './Majors'
+import Majors from './Majors';
+import SeminarForm from "./SeminarForm";
 
-function App() {
+const App = () => {
   return (
-    <Majors></Majors>
+    <div className="App">
+      <SeminarForm />
+      <Majors></Majors>
+    </div>
   );
-}
+};
 
 export default App;

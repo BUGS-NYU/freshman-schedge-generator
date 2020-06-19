@@ -1,3 +1,13 @@
+# Freshman Schedge Generator
+
+## Introduction
+
+Freshman Schedge Generator is a front-end project using [Schedge API](https://github.com/BUGS-NYU/schedge), to develop a website to automatically generate freshman schedule for NYU CAS student. The project serve as a collaborative effort between NYU students. We want to offer this as a learning experience for new programmers to learn about web application development as well as open source contributions. 
+
+## Contributing
+Please read CONTRIBUTING.md.
+
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
