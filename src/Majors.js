@@ -9,16 +9,18 @@ const Button = styled.button`
 `;
 
 const Majors = () => {
-  const [majors, setMajors] = useState();
+  const [majors, setMajors] = useState([]);
 
-  useEffect(() => {
-    fetch("https://schedge.a1liu.com/subjects")
-    .then((data) => data.json())
-    .then((data) => setMajors(data['UA']));   
-  });
-
-  const logSubjects = (e) => {
+  const logSubjects = async (e) => {
     e.preventDefault();
+    if (majors.length === 0) {
+      const response = await fetch("https://schedge.a1liu.com/subjects")
+      const subjects = await response.json();
+
+      setMajors(subjects['UA']);
+      console.log(subjects['UA']);
+      return;
+    }
     console.log(majors);
   };
 
