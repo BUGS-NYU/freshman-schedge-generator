@@ -1,118 +1,104 @@
-import React, {useState} from 'react';
+import React, { useState } from "react";
 
-async function randomCourses() {
-    try {
-        const data = await fetch('https://schedge.a1liu.com/2020/FA/UA/CORE')
-        //awaits for the promise to return the data
-        const courses = await data.json();
+async function getRandomCourses() {
+  try {
+    const data = await fetch("https://schedge.a1liu.com/2020/FA/UA/CORE");
+    //awaits for the promise to return the data
+    const courses = await data.json();
 
-        let physicalScience = [];
-        let lifeScience = [];
-        let textsAndIdeas = [];
-        let culturesAndContexts = [];
-        let expressiveCulture = [];
-        let quantitativeReasoning = [];
+    let physicalScience = [];
+    let lifeScience = [];
+    let textsAndIdeas = [];
+    let culturesAndContexts = [];
+    let expressiveCulture = [];
+    let quantitativeReasoning = [];
 
-        let i = 0;
+    let i = 0;
 
+    for (i = 0; i < courses.length; i++) {
+      const id = parseInt(courses[i].deptCourseId);
 
-        for (i = 0; i < courses.length; i++) {
-            const id = parseInt(courses[i].deptCourseId);
-
-
-            if (id < 300 && id >= 200) {
-                physicalScience = physicalScience.concat(courses[i].sections);
-            } else if (id < 400 && id >= 300) {
-                lifeScience = lifeScience.concat(courses[i].sections);
-            }
-            else if (id >= 400 && id < 500) {
-                textsAndIdeas = textsAndIdeas.concat(courses[i].sections);
-            } else if (id >= 500 && id < 600) {
-                culturesAndContexts = culturesAndContexts.concat(courses[i].sections);
-            } else if (id >= 700) {
-                expressiveCulture = expressiveCulture.concat(courses[i].sections);
-            } else {
-                quantitativeReasoning= quantitativeReasoning.concat(courses[i].sections);
-            }
-        }
-
-        const allSections = [];
-        allSections.push(physicalScience);
-        allSections.push(lifeScience);
-        allSections.push(textsAndIdeas);
-        allSections.push(culturesAndContexts);
-        allSections.push(expressiveCulture);
-        allSections.push(quantitativeReasoning);
-
-
-
-
-        return allSections;
-    } catch(e) {
-        console.log(e);
-        return undefined;
+      if (id < 300 && id >= 200) {
+        physicalScience = physicalScience.concat(courses[i].sections);
+      } else if (id < 400 && id >= 300) {
+        lifeScience = lifeScience.concat(courses[i].sections);
+      } else if (id >= 400 && id < 500) {
+        textsAndIdeas = textsAndIdeas.concat(courses[i].sections);
+      } else if (id >= 500 && id < 600) {
+        culturesAndContexts = culturesAndContexts.concat(courses[i].sections);
+      } else if (id >= 700) {
+        expressiveCulture = expressiveCulture.concat(courses[i].sections);
+      } else {
+        quantitativeReasoning = quantitativeReasoning.concat(
+          courses[i].sections
+        );
+      }
     }
+
+    const allSubjects = [];
+    allSubjects.push(physicalScience);
+    allSubjects.push(lifeScience);
+    allSubjects.push(textsAndIdeas);
+    allSubjects.push(culturesAndContexts);
+    allSubjects.push(expressiveCulture);
+    allSubjects.push(quantitativeReasoning);
+
+    return allSubjects;
+  } catch (e) {
+    console.log(e);
+    return undefined;
+  }
 }
 
-function randomSectionArr(allSections) {
-    let randomSectionArray = [];
+function getRandomSections(allSubjects) {
+  let randomSectionArray = [];
 
-    let random = twoRandomIndices(allSections.length);
+  let random = twoRandomIndices(allSubjects.length);
 
-    let randomCourseOne = allSections[random[0]];
-    let randomCourseTwo = allSections[random[1]];
+  let randomCourseOne = allSubjects[random[0]];
+  let randomCourseTwo = allSubjects[random[1]];
 
-    let randomSectionOne = randomCourseOne[randomIndex(randomCourseOne.length)];
-    let randomSectionTwo = randomCourseTwo[randomIndex(randomCourseTwo.length)];
+  let randomSectionOne = randomCourseOne[getRandomIndex(randomCourseOne.length)];
+  let randomSectionTwo = randomCourseTwo[getRandomIndex(randomCourseTwo.length)];
 
-    randomSectionArray.push(randomSectionOne);
-    randomSectionArray.push(randomSectionTwo);
+  randomSectionArray.push(randomSectionOne);
+  randomSectionArray.push(randomSectionTwo);
 
-    return randomSectionArray;
-
+  return randomSectionArray;
 }
 
-const Fetcher = () => {
-    const [courses, setCourses] = useState([]);
-    const [randomSection, setRandomSection] = useState([]);
+const ScheduleGenerator = () => {
+  const [courses, setCourses] = useState([]);
+  const [randomSection, setRandomSection] = useState([]);
 
-    async function setCoursesAsync(event) {
-
-        if (courses.length === 0) {
-            const randomArray = await randomCourses();
-            setCourses(randomArray);
-        }
-
-        setRandomSection(randomSectionArr(courses));
-
+  async function generateSchedule(event) {
+    if (courses.length === 0) {
+      const randomArray = await getRandomCourses();
+      setCourses(randomArray);
     }
+    setRandomSection(getRandomSections(courses));
+  }
+  return <button onClick={generateSchedule} />;
+};
 
-    return (
-        <button onClick={setCoursesAsync}/>
-        )
-    }
-
-function randomIndex(size) {
-    return Math.floor(Math.random() * size);
+function getRandomIndex(size) {
+  return Math.floor(Math.random() * size);
 }
 
 function twoRandomIndices(size) {
-    let one = Math.floor(Math.random() * size);
-    let two = Math.floor(Math.random() * size);
+  let one = Math.floor(Math.random() * size);
+  let two = Math.floor(Math.random() * size);
 
-    while (one === two) {
-        two = Math.floor(Math.random() * size);
-    }
+  while (one === two) {
+    two = Math.floor(Math.random() * size);
+  }
 
-    return [one, two];
+  return [one, two];
 }
-
-
-
 
 //async functions always return a promise
 
-export default Fetcher;
-
+export default ScheduleGenerator;
 
 //'https://schedge.a1liu.com/2020/FA/UA/CORE'
+
