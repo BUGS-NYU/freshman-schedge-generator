@@ -1,16 +1,15 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 
-const StyledInput = styled.input`
+const StyledSelect = styled.select`
   border: 2px solid black;
   padding-left: 10px;
   color: black;
-  width: 300px;
+  width: 200px;
   height: 35px;
   font-size: 20px;
-  border-radius: 5px;
 `;
 
 
 
-export default StyledInput;
+export default StyledSelect;
