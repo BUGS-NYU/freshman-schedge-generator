@@ -1,15 +1,14 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
-import Seminar from './Seminar';
+import React from "react";
+import logo from "./logo.svg";
+import "./App.css";
+import Seminar from "./Seminar";
 
-const App=() =>{
+const App = () => {
   return (
     <div className="App">
-      <Seminar/>
+      <SeminarForm />
     </div>
-
   );
-}
+};
 
 export default App;

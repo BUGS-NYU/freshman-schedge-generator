@@ -1,15 +1,15 @@
-import React from 'react';
-const Seminar = ()=>{
-  const[answer,setAnswer] = React.useState();
+import React from "react";
+const SeminarForm = () => {
+  const [answer, setAnswer] = React.useState();
 
-  const handler = (e) => {
-    setAnswer(e.target.value)
-    console.log(e.target.value)
-    console.log(answer)
-  }
+  const handlerSubmit = (e) => {
+    setAnswer(e.target.value);
+    console.log(e.target.value);
+    console.log(answer);
+  };
   return (
-    <div style = {{color:'blue'}}>
-    <form>
+    <div style={{ color: "blue" }}>
+      <form>
         Do you want to take a seminar?
         <div className="form-check">
           <label>
@@ -18,13 +18,14 @@ const Seminar = ()=>{
               name="react-tips"
               value="option1"
               className="form-check-input"
-              onChange = {()=>{setAnswer("Yes")}}
-              checked = {answer === "Yes"}
+              onChange={() => {
+                setAnswer("Yes");
+              }}
+              checked={answer === "Yes"}
             />
             Yes
           </label>
         </div>
-
         <div className="form-check">
           <label>
             <input
@@ -32,13 +33,14 @@ const Seminar = ()=>{
               name="react-tips"
               value="option2"
               className="form-check-input"
-              onChange = {()=>{setAnswer("No")}}
-              checked = {answer === "No"}
+              onChange={() => {
+                setAnswer("No");
+              }}
+              checked={answer === "No"}
             />
             No
           </label>
         </div>
-
         <div className="form-group">
           <button className="button" type="submit">
             Submit
@@ -47,7 +49,6 @@ const Seminar = ()=>{
       </form>
     </div>
   );
-}
+};
 
-
-export default Seminar;
+export default SeminarForm;
