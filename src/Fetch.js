@@ -55,11 +55,11 @@ function getRandomSections(allSubjects) {
 
   let random = twoRandomIndices(allSubjects.length);
 
-  let randomCourseOne = allSubjects[random[0]];
-  let randomCourseTwo = allSubjects[random[1]];
+  let randomSubjectOne = allSubjects[random[0]];
+  let randomSubjectTwo = allSubjects[random[1]];
 
-  let randomSectionOne = randomCourseOne[getRandomIndex(randomCourseOne.length)];
-  let randomSectionTwo = randomCourseTwo[getRandomIndex(randomCourseTwo.length)];
+  let randomSectionOne = randomSubjectOne[getRandomIndex(randomSubjectOne.length)];
+  let randomSectionTwo = randomSubjectTwo[getRandomIndex(randomSubjectTwo.length)];
 
   randomSectionArray.push(randomSectionOne);
   randomSectionArray.push(randomSectionTwo);
