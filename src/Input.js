@@ -11,6 +11,4 @@ const StyledInput = styled.input`
   border-radius: 5px;
 `;
 
-
-
 export default StyledInput;

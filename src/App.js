@@ -11,18 +11,16 @@ const MainContent = styled.div`
   background-image: url("${logo}");
   background-repeat: cover;
   height: calc(100vh - 50px);
-
 `;
-
 
 function App() {
   return (
     <div>
-        <StyledHeader> ALBERTA</StyledHeader>
+      <StyledHeader> ALBERTA</StyledHeader>
 
-        <MainContent>
+      <MainContent>
         <MajorForm></MajorForm>
-        </MainContent>
+      </MainContent>
     </div>
   );
 }

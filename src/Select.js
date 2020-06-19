@@ -10,6 +10,4 @@ const StyledSelect = styled.select`
   font-size: 20px;
 `;
 
-
-
 export default StyledSelect;
