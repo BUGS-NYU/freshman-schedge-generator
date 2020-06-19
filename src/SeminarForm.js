@@ -2,7 +2,7 @@ import React from "react";
 const SeminarForm = () => {
   const [answer, setAnswer] = React.useState();
 
-  const handlerSubmit = (e) => {
+  const handleSubmit = (e) => {
     setAnswer(e.target.value);
     console.log(e.target.value);
     console.log(answer);
