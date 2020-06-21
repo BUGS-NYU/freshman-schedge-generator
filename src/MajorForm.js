@@ -38,8 +38,8 @@ function MajorForm() {
     <StyledForm onSubmit={handleSubmit}>
       <StyledSelect onChange={handleChange}>
         {
-          Object.keys(majorOptions).map(key =>
-            <option value={key}>{majorOptions[key]}</option>
+          Object.keys(majorOptions).map(key => 
+            <option key={key} value={key}>{majorOptions[key]}</option>
           )
         }
       </StyledSelect>
