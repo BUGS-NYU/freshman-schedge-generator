@@ -16,9 +16,10 @@ const SeminarForm = () => {
     console.log(e.target.value);
     console.log(answer);
   };
+
   return (
     <div>
-      <Form>
+      <Form onSubmit={handleSubmit}>
         Do you want to take a seminar?
         <div className="form-check">
           <label>

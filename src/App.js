@@ -1,14 +1,13 @@
 import React from "react";
 import "./App.css";
 import logo from "./logo.jpg";
-import ScheduleGenerator from './Fetch';
+import ScheduleGenerator from "./ScheduleGenerator";
 import styled from "styled-components";
-import Majors from './Majors';
+import Majors from "./Majors";
 import SeminarForm from "./SeminarForm";
 
 import MajorForm from "./MajorForm";
 import StyledHeader from "./Header";
-import Button from "./Button";
 
 const MainContent = styled.div`
   background-image: url("${logo}");
@@ -21,10 +20,10 @@ const App = () => {
     <div>
       <StyledHeader> ALBERTA</StyledHeader>
       <MainContent>
-        <ScheduleGenerator />
         <MajorForm></MajorForm>
         <SeminarForm />
         <Majors></Majors>
+        <ScheduleGenerator />
       </MainContent>
     </div>
   );

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 
 const Button = styled.button`
@@ -11,22 +11,23 @@ const Button = styled.button`
 const Majors = () => {
   const [majors, setMajors] = useState([]);
 
-  const logSubjects = async (e) => {
+  async function getMajors() {
+    const response = await fetch("https://schedge.a1liu.com/subjects")
+    const subjects = await response.json();
+
+    setMajors(subjects['UA']);
+  }
+
+  function handleClick(e) {
     e.preventDefault();
     if (majors.length === 0) {
-      const response = await fetch("https://schedge.a1liu.com/subjects")
-      const subjects = await response.json();
-
-      setMajors(subjects['UA']);
-      console.log(subjects['UA']);
-      return;
+      getMajors();
     }
-    console.log(majors);
-  };
+  }
 
   return (
     <div>
-      <Button onClick={logSubjects}>Show Majors</Button>
+      <Button onClick={handleClick}>Show Majors</Button>
     </div>
   );
 };

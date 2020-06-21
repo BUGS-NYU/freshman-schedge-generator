@@ -1,4 +1,5 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
+import Button from "./Button";
 
 async function getRandomCourses() {
   try {
@@ -29,8 +30,9 @@ async function getRandomCourses() {
       } else if (id >= 700) {
         expressiveCulture = expressiveCulture.concat(courses[i].sections);
       } else {
-        quantitativeReasoning =
-            quantitativeReasoning.concat(courses[i].sections);
+        quantitativeReasoning = quantitativeReasoning.concat(
+          courses[i].sections
+        );
       }
     }
 
@@ -58,9 +60,9 @@ function getRandomSections(allSubjects) {
   let randomSubjectTwo = allSubjects[random[1]];
 
   let randomSectionOne =
-      randomSubjectOne[getRandomIndex(randomSubjectOne.length)];
+    randomSubjectOne[getRandomIndex(randomSubjectOne.length)];
   let randomSectionTwo =
-      randomSubjectTwo[getRandomIndex(randomSubjectTwo.length)];
+    randomSubjectTwo[getRandomIndex(randomSubjectTwo.length)];
 
   randomSectionArray.push(randomSectionOne);
   randomSectionArray.push(randomSectionTwo);
@@ -72,14 +74,19 @@ const ScheduleGenerator = () => {
   const [courses, setCourses] = useState([]);
   const [randomSection, setRandomSection] = useState([]);
 
-  async function generateSchedule(event) {
+  async function generateSchedule() {
     if (courses.length === 0) {
       const randomArray = await getRandomCourses();
       setCourses(randomArray);
     }
     setRandomSection(getRandomSections(courses));
   }
-  return <button onClick={generateSchedule} />;
+  return (
+    <div>
+      <Button onClick={generateSchedule}> Generate Schedule </Button>
+      Random Section: {randomSection}
+    </div>
+  );
 };
 
 function getRandomIndex(size) {
@@ -91,7 +98,7 @@ function twoRandomIndices(size) {
   let two = Math.floor(Math.random() * size);
 
   let counter = 0;
-  for ( ; one === two && counter < 10; counter++) {
+  for (; one === two && counter < 10; counter++) {
     two = Math.floor(Math.random() * size);
   }
 
@@ -99,8 +106,6 @@ function twoRandomIndices(size) {
   return [one, two];
 }
 
-//async functions always return a promise
+// async functions always return a promise
 
 export default ScheduleGenerator;
-
-//'https://schedge.a1liu.com/2020/FA/UA/CORE'

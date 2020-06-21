@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import Button from "./Button";
-import StyledInput from "./Input";
-import StyledSelect from "./Select";
+import Input from "./Input";
+import Select from "./Select";
 
-const StyledForm = styled.form`
+const Form = styled.form`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -26,16 +26,16 @@ function MajorForm() {
   }
 
   return (
-    <StyledForm onSubmit={handleSubmit}>
-      <StyledSelect onChange={handleChange}>
+    <Form onSubmit={handleSubmit}>
+      <Select onChange={handleChange}>
         <option value="nothing">Choose a major</option>
         <option value="Computer Science">CS</option>
         <option value="English">Eng</option>
         <option value="Chemistry">Chem</option>
         <option value="Math">Math</option>
-      </StyledSelect>
+      </Select>
       <p>You chose {major}.</p>
-      <StyledInput
+      <Input
         type="text"
         onChange={(event) => {
           setSearch(event.target.value);
@@ -43,7 +43,7 @@ function MajorForm() {
       />
       <br />
       <Button>Submit</Button>
-    </StyledForm>
+    </Form>
   );
 }
 
