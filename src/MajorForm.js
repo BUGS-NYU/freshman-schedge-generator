@@ -11,6 +11,14 @@ const StyledForm = styled.form`
   padding: 10px;
 `;
 
+const majorOptions = {
+  "nothing": "Choose a major",
+  "Computer Science": "CS",
+  "English": "Eng",
+  "Chemistry": "Chem",
+  "Math": "Math"
+};
+
 function MajorForm() {
   const [major, setMajor] = useState("nothing");
   const [search, setSearch] = useState("nothing");
@@ -22,17 +30,18 @@ function MajorForm() {
 
   function handleSubmit(event) {
     event.preventDefault();
-    alert("You choose " + major + ". You searched for " + search + ".");
+    alert(`You choose ${major}. You searched for ${search}.`);
+
   }
 
   return (
     <StyledForm onSubmit={handleSubmit}>
       <StyledSelect onChange={handleChange}>
-        <option value="nothing">Choose a major</option>
-        <option value="Computer Science">CS</option>
-        <option value="English">Eng</option>
-        <option value="Chemistry">Chem</option>
-        <option value="Math">Math</option>
+        {
+          Object.keys(majorOptions).map(key =>
+            <option value={key}>{majorOptions[key]}</option>
+          )
+        }
       </StyledSelect>
       <p>You chose {major}.</p>
       <StyledInput
