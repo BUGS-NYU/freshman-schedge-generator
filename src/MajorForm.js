@@ -2,8 +2,7 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import Button from "./Button";
 import StyledInput from "./Input";
-import StyledSelect from "./Select";
-import Majors from "./Majors"; // default import
+import StyledSelect from "./Select"; // default import
 import {badMajors} from "./constants" // named import
 
 const StyledForm = styled.form`
