@@ -11,11 +11,7 @@ const SubmitButton = styled.button`
 const SeminarForm = () => {
   const [answer, setAnswer] = useState("None");
 
-  const handleSubmit = (e) => {
-    setAnswer(e.target.value);
-    console.log(e.target.value);
-    console.log(answer);
-  };
+
   return (
     <div>
       <Form>

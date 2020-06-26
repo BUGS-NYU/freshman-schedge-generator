@@ -8,7 +8,7 @@ import SeminarForm from "./SeminarForm";
 
 import MajorForm from "./MajorForm";
 import StyledHeader from "./Header";
-import Button from "./Button";
+
 
 const MainContent = styled.div`
   background-image: url("${logo}");
