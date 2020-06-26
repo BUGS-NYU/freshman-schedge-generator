@@ -1,5 +1,17 @@
 import React, { useState } from "react";
 import Button from "./Button";
+import styled from "styled-components";
+
+const StyledSchedule = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 10px;
+`;
+
+const StyledScheduleOutput = styled.div`
+  display: flex;
+`;
 
 async function getRandomCourses() {
   try {
@@ -78,14 +90,18 @@ const ScheduleGenerator = () => {
     if (courses.length === 0) {
       const randomArray = await getRandomCourses();
       setCourses(randomArray);
+      setRandomSection(getRandomSections(randomArray));
+    } else {
+      setRandomSection(getRandomSections(courses));
     }
-    setRandomSection(getRandomSections(courses));
   }
   return (
-    <div>
+    <StyledSchedule>
       <Button onClick={generateSchedule}> Generate Schedule </Button>
-      Random Section: {randomSection}
-    </div>
+      <StyledScheduleOutput>
+        {randomSection.map((subject) => (<div key = {subject.courseNum}> {subject.name} </div>))}
+      </StyledScheduleOutput>
+    </StyledSchedule>
   );
 };
 
