@@ -1,4 +1,18 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
+import Button from "./Button";
+import styled from "styled-components";
+import Table from "./Table";
+
+const StyledSchedule = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 10px;
+`;
+
+const StyledScheduleOutput = styled.div`
+  display: flex;
+`;
 
 async function getRandomCourses() {
   try {
@@ -17,6 +31,13 @@ async function getRandomCourses() {
 
     for (i = 0; i < courses.length; i++) {
       const id = parseInt(courses[i].deptCourseId);
+      console.log("id"+id);
+
+      let j=0;
+        for (j=0 ; j<courses[i].sections.length;j++){
+          courses[i].sections[j].sectionID=id;
+      }
+      j=0;
 
       if (id < 300 && id >= 200) {
         physicalScience = physicalScience.concat(courses[i].sections);
@@ -29,8 +50,9 @@ async function getRandomCourses() {
       } else if (id >= 700) {
         expressiveCulture = expressiveCulture.concat(courses[i].sections);
       } else {
-        quantitativeReasoning =
-            quantitativeReasoning.concat(courses[i].sections);
+        quantitativeReasoning = quantitativeReasoning.concat(
+          courses[i].sections
+        );
       }
     }
 
@@ -58,9 +80,9 @@ function getRandomSections(allSubjects) {
   let randomSubjectTwo = allSubjects[random[1]];
 
   let randomSectionOne =
-      randomSubjectOne[getRandomIndex(randomSubjectOne.length)];
+    randomSubjectOne[getRandomIndex(randomSubjectOne.length)];
   let randomSectionTwo =
-      randomSubjectTwo[getRandomIndex(randomSubjectTwo.length)];
+    randomSubjectTwo[getRandomIndex(randomSubjectTwo.length)];
 
   randomSectionArray.push(randomSectionOne);
   randomSectionArray.push(randomSectionTwo);
@@ -72,14 +94,26 @@ const ScheduleGenerator = () => {
   const [courses, setCourses] = useState([]);
   const [randomSection, setRandomSection] = useState([]);
 
-  async function generateSchedule(event) {
+  async function generateSchedule() {
     if (courses.length === 0) {
       const randomArray = await getRandomCourses();
+
       setCourses(randomArray);
+      setRandomSection(getRandomSections(randomArray));
+    } else {
+      setRandomSection(getRandomSections(courses));
     }
-    setRandomSection(getRandomSections(courses));
   }
-  return <button onClick={generateSchedule} />;
+
+  return (
+    <StyledSchedule>
+      <Button onClick={generateSchedule}> Generate Schedule </Button>
+      {randomSection.length !== 0 &&
+        <Table course1={randomSection[0].sectionID} class1={randomSection[0].name}
+                course2={randomSection[1].sectionID} class2= {randomSection[1].name}>
+        </Table>}
+    </StyledSchedule>
+  );
 };
 
 function getRandomIndex(size) {
@@ -91,7 +125,7 @@ function twoRandomIndices(size) {
   let two = Math.floor(Math.random() * size);
 
   let counter = 0;
-  for ( ; one === two && counter < 10; counter++) {
+  for (; one === two && counter < 10; counter++) {
     two = Math.floor(Math.random() * size);
   }
 
@@ -99,8 +133,6 @@ function twoRandomIndices(size) {
   return [one, two];
 }
 
-//async functions always return a promise
+// async functions always return a promise
 
 export default ScheduleGenerator;
-
-//'https://schedge.a1liu.com/2020/FA/UA/CORE'
