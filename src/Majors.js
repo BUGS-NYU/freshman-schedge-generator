@@ -12,10 +12,10 @@ const Majors = () => {
   const [majors, setMajors] = useState([]);
 
   async function getMajors() {
-    const response = await fetch("https://schedge.a1liu.com/subjects")
+    const response = await fetch("https://schedge.a1liu.com/subjects");
     const subjects = await response.json();
 
-    setMajors(subjects['UA']);
+    setMajors(subjects["UA"]);
   }
 
   function handleClick(e) {

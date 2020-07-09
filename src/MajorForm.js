@@ -3,7 +3,7 @@ import styled from "styled-components";
 import Button from "./Button";
 import Input from "./Input";
 import StyledSelect from "./Select"; // default import
-import {badMajors} from "./constants" // named import
+import { badMajors } from "./constants"; // named import
 
 const Form = styled.form`
   display: flex;
@@ -13,22 +13,22 @@ const Form = styled.form`
 `;
 
 const majorOptions = {
-  "nothing": "Choose a major",
+  nothing: "Choose a major",
   "Computer Science": "CS",
-  "English": "Eng",
-  "Chemistry": "Chem",
-  "Math": "Math"
+  English: "Eng",
+  Chemistry: "Chem",
+  Math: "Math",
 };
 
 function MajorForm() {
   const [majors, setMajors] = useState([]);
   const logSubjects = async (e) => {
     if (majors.length === 0) {
-      const response = await fetch("https://schedge.a1liu.com/subjects")
+      const response = await fetch("https://schedge.a1liu.com/subjects");
       const subjects = await response.json();
 
-      setMajors(subjects['UA']);
-      console.log(subjects['UA']);
+      setMajors(subjects["UA"]);
+      console.log(subjects["UA"]);
       return;
     }
     console.log(majors);
@@ -36,10 +36,10 @@ function MajorForm() {
 
   const [major, setMajor] = useState("nothing");
   const [search, setSearch] = useState("nothing");
-  useEffect( () => { // called when you changed things
+  useEffect(() => {
+    // called when you changed things
     console.log("hi");
     logSubjects();
-
   }, []);
   function handleChange(event) {
     event.preventDefault();
@@ -49,17 +49,21 @@ function MajorForm() {
   function handleSubmit(event) {
     event.preventDefault();
     alert(`You choose ${major}. You searched for ${search}.`);
-
   }
 
   return (
     <Form onSubmit={handleSubmit}>
       <StyledSelect onChange={handleChange}>
-       {Object.entries(majors)
-         .filter( ([code,major])=>  !(badMajors.has(code)) )
-         .map( ([code,major]) =>  {return <option key={code} value={code}> {major.name} </option>})
-       }
-
+        {Object.entries(majors)
+          .filter(([code, major]) => !badMajors.has(code))
+          .map(([code, major]) => {
+            return (
+              <option key={code} value={code}>
+                {" "}
+                {major.name}{" "}
+              </option>
+            );
+          })}
       </StyledSelect>
       <p>You chose {major}.</p>
       <Input

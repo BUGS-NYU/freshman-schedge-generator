@@ -3,11 +3,9 @@ import "./App.css";
 import logo from "./logo.jpg";
 import ScheduleGenerator from "./ScheduleGenerator";
 import styled from "styled-components";
-import Majors from "./Majors";
 import SeminarForm from "./SeminarForm";
 import MajorForm from "./MajorForm";
 import StyledHeader from "./Header";
-import Table from "./Table";
 
 const MainContent = styled.div`
   background-image: url("${logo}");
@@ -28,7 +26,6 @@ const App = () => {
         <SeminarForm />
         <ScheduleGenerator />
       </MainContent>
-
     </div>
   );
 };
