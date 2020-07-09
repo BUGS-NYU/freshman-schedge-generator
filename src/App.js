@@ -5,14 +5,18 @@ import ScheduleGenerator from "./ScheduleGenerator";
 import styled from "styled-components";
 import Majors from "./Majors";
 import SeminarForm from "./SeminarForm";
-
 import MajorForm from "./MajorForm";
 import StyledHeader from "./Header";
+import Table from "./Table";
 
 const MainContent = styled.div`
   background-image: url("${logo}");
-  background-repeat: cover;
-  height: calc(100vh - 50px);
+  background-repeat: none;
+  /* height: calc(100vh)s ; */
+  margin: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 `;
 
 const App = () => {
@@ -22,9 +26,9 @@ const App = () => {
       <MainContent>
         <MajorForm></MajorForm>
         <SeminarForm />
-        <Majors></Majors>
         <ScheduleGenerator />
       </MainContent>
+
     </div>
   );
 };

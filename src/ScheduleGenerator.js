@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Button from "./Button";
 import styled from "styled-components";
+import Table from "./Table";
 
 const StyledSchedule = styled.div`
   display: flex;
@@ -30,6 +31,13 @@ async function getRandomCourses() {
 
     for (i = 0; i < courses.length; i++) {
       const id = parseInt(courses[i].deptCourseId);
+      console.log("id"+id);
+
+      let j=0;
+        for (j=0 ; j<courses[i].sections.length;j++){
+          courses[i].sections[j].sectionID=id;
+      }
+      j=0;
 
       if (id < 300 && id >= 200) {
         physicalScience = physicalScience.concat(courses[i].sections);
@@ -89,18 +97,30 @@ const ScheduleGenerator = () => {
   async function generateSchedule() {
     if (courses.length === 0) {
       const randomArray = await getRandomCourses();
+
       setCourses(randomArray);
       setRandomSection(getRandomSections(randomArray));
     } else {
       setRandomSection(getRandomSections(courses));
     }
   }
+<<<<<<< HEAD:src/ScheduleGenerator.js
   return (
     <StyledSchedule>
       <Button onClick={generateSchedule}> Generate Schedule </Button>
       <StyledScheduleOutput>
         {randomSection.map((subject) => (<div key = {subject.courseNum}> {subject.name} </div>))}
       </StyledScheduleOutput>
+=======
+
+  return (
+    <StyledSchedule>
+      <Button onClick={generateSchedule}> Generate Schedule </Button>
+      {randomSection.length !== 0 &&
+        <Table course1={randomSection[0].sectionID} class1={randomSection[0].name}
+                course2={randomSection[1].sectionID} class2= {randomSection[1].name}>
+        </Table>}
+>>>>>>> origin/master:src/ScheduleGenerator.js
     </StyledSchedule>
   );
 };
