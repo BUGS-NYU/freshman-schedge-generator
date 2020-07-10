@@ -31,7 +31,6 @@ async function getRandomCourses() {
 
     for (i = 0; i < courses.length; i++) {
       const id = parseInt(courses[i].deptCourseId);
-      console.log("id" + id);
 
       let j = 0;
       for (j = 0; j < courses[i].sections.length; j++) {
