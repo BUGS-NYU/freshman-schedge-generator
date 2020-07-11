@@ -141,7 +141,7 @@ const ScheduleGenerator = () => {
   }
 
   return (
-    <div>
+    <StyledSchedule>
       <div>
         Do you want to take a seminar?
         <div className="form-check">
@@ -173,22 +173,20 @@ const ScheduleGenerator = () => {
           </label>
         </div>
       </div>
-      <StyledSchedule>
         <Button onClick={generateSchedule}> Generate Schedule </Button>
         {mySections.length !== 0 && (
           <Table
-            course1={mySections[0].sectionID}
-            class1={mySections[0].name}
-            course2={mySections[1].sectionID}
-            class2={mySections[1].name}
-            course3={mySeminar.sectionID}
-            class3={mySeminar.name}
+            course1={mySeminar.sectionID}
+            class1={mySeminar.name}
+            course2={mySections[0].sectionID}
+            class2={mySections[0].name}
+            course3={mySections[1].sectionID}
+            class3={mySections[1].name}
             course4={mySections[2].sectionID}
             class4={mySections[2].name}
           ></Table>
         )}
       </StyledSchedule>
-    </div>
   );
 };
 

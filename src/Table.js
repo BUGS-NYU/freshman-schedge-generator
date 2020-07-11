@@ -4,6 +4,7 @@ import styled from "styled-components";
 const StyledTable = styled.table`
   border: 2px solid black;
   color: black;
+  background-color: #e8e6e4;
   width: 60%;
   height: 50px;
   font-size: 40px;
