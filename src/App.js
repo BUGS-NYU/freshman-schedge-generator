@@ -3,7 +3,6 @@ import "./App.css";
 import logo from "./logo.jpg";
 import ScheduleGenerator from "./ScheduleGenerator";
 import styled from "styled-components";
-import SeminarForm from "./SeminarForm";
 import MajorForm from "./MajorForm";
 import StyledHeader from "./Header";
 
@@ -23,7 +22,6 @@ const App = () => {
       <StyledHeader> ALBERTA</StyledHeader>
       <MainContent>
         <MajorForm></MajorForm>
-        <SeminarForm />
         <ScheduleGenerator />
       </MainContent>
     </div>

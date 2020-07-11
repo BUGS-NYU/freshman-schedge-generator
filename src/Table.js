@@ -3,7 +3,6 @@ import styled from "styled-components";
 
 const StyledTable = styled.table`
   border: 2px solid black;
-
   color: black;
   width: 60%;
   height: 50px;
@@ -17,7 +16,16 @@ const StyledTD = styled.td`
   border: 1px solid black;
 `;
 
-function Table({ course1, course2, class1, class2, class3, class4 }) {
+function Table({
+  course1,
+  course2,
+  course3,
+  course4,
+  class1,
+  class2,
+  class3,
+  class4,
+}) {
   return (
     <StyledTable>
       <tbody>
@@ -31,11 +39,11 @@ function Table({ course1, course2, class1, class2, class3, class4 }) {
         </tr>
         <tr>
           {" "}
-          <StyledTD> #3</StyledTD> <StyledTD> {class3} </StyledTD>{" "}
+          <StyledTD> {course3}</StyledTD> <StyledTD> {class3} </StyledTD>{" "}
         </tr>
         <tr>
           {" "}
-          <StyledTD> #4 </StyledTD> <StyledTD> {class4}</StyledTD>{" "}
+          <StyledTD> {course4} </StyledTD> <StyledTD> {class4}</StyledTD>{" "}
         </tr>
       </tbody>
     </StyledTable>
