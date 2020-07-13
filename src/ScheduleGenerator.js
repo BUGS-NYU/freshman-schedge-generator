@@ -223,6 +223,7 @@ const ScheduleGenerator = () => {
             No
           </label>
         </div>
+        //c
       </div>
         <Button onClick={generateSchedule}> Generate Schedule </Button>
         {mySections.length !== 0 && (
