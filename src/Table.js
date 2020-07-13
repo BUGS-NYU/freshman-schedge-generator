@@ -26,25 +26,34 @@ function Table({
   class2,
   class3,
   class4,
+  time1,
+  time2,
+  time3,
+  time4,
 }) {
   return (
     <StyledTable>
+
       <tbody>
         <tr>
+          <StyledTD> Course ID </StyledTD> <StyledTD> Meetings </StyledTD> <StyledTD> Class </StyledTD>
+        </tr>
+
+        <tr>
           {" "}
-          <StyledTD> {course1} </StyledTD> <StyledTD> {class1}</StyledTD>
+          <StyledTD> {course1} </StyledTD> <StyledTD> {time1}</StyledTD> <StyledTD> {class1}</StyledTD>
         </tr>{" "}
         <tr>
           {" "}
-          <StyledTD> {course2} </StyledTD> <StyledTD> {class2} </StyledTD>{" "}
+          <StyledTD> {course2} </StyledTD> <StyledTD> {time2}</StyledTD> <StyledTD> {class2} </StyledTD>{" "}
         </tr>
         <tr>
           {" "}
-          <StyledTD> {course3}</StyledTD> <StyledTD> {class3} </StyledTD>{" "}
+          <StyledTD> {course3}</StyledTD> <StyledTD> {time3}</StyledTD> <StyledTD> {class3} </StyledTD>{" "}
         </tr>
         <tr>
           {" "}
-          <StyledTD> {course4} </StyledTD> <StyledTD> {class4}</StyledTD>{" "}
+          <StyledTD> {course4} </StyledTD> <StyledTD> {time4}</StyledTD> <StyledTD> {class4}</StyledTD>{" "}
         </tr>
       </tbody>
     </StyledTable>
