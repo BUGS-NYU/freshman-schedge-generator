@@ -9,8 +9,7 @@ import StyledHeader from "./Header";
 const MainContent = styled.div`
   background-image: url("${logo}");
   background-repeat: none;
-  /* height: calc(100vh)s ; */
-  margin: 10px;
+  height: calc(100vh)s ;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -23,6 +22,7 @@ const App = () => {
       <MainContent>
         <MajorForm></MajorForm>
         <ScheduleGenerator />
+        <StyledHeader> </StyledHeader>
       </MainContent>
     </div>
   );

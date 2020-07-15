@@ -12,13 +12,13 @@ const Form = styled.form`
   padding: 10px;
 `;
 
-const majorOptions = {
-  nothing: "Choose a major",
-  "Computer Science": "CS",
-  English: "Eng",
-  Chemistry: "Chem",
-  Math: "Math",
-};
+// const majorOptions = {
+//   nothing: "Choose a major",
+//   "Computer Science": "CS",
+//   English: "Eng",
+//   Chemistry: "Chem",
+//   Math: "Math",
+// };
 
 function MajorForm() {
   const [majors, setMajors] = useState([]);
@@ -28,7 +28,7 @@ function MajorForm() {
       const subjects = await response.json();
 
       setMajors(subjects["UA"]);
-      console.log(subjects["UA"]);
+      // console.log(subjects["UA"]);
       return;
     }
     console.log(majors);
@@ -38,7 +38,7 @@ function MajorForm() {
   const [search, setSearch] = useState("nothing");
   useEffect(() => {
     // called when you changed things
-    console.log("hi");
+
     logSubjects();
   }, []);
   function handleChange(event) {
@@ -52,6 +52,7 @@ function MajorForm() {
   }
 
   return (
+    <div>
     <Form onSubmit={handleSubmit}>
       <StyledSelect onChange={handleChange}>
         {Object.entries(majors)
@@ -75,6 +76,7 @@ function MajorForm() {
       <br />
       <Button>Submit</Button>
     </Form>
+    </div>
   );
 }
 
