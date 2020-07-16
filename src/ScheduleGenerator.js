@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Button from "./Button";
 import styled from "styled-components";
 import Table from "./Table";
+import moment from 'moment';
 
 const StyledSchedule = styled.div`
   display: flex;
@@ -9,6 +10,12 @@ const StyledSchedule = styled.div`
   align-items: center;
   padding: 10px;
 `;
+function time_convert(num)
+ {
+  var hours = Math.floor(num / 60);
+  var minutes = num % 60;
+  return hours + ":" + minutes;
+}
 
 async function getRandomSeminars() {
   try {
@@ -21,9 +28,12 @@ async function getRandomSeminars() {
       courses[i].sectionID = id;
       courses[i].instructor = courses[i].sections[0].instructors[0];
       courses[i].meetingDate = getDay(courses[i].sections[0].meetings[0].beginDate.charAt(9));
-      courses[i].meetingTime = courses[i].sections[0].meetings[0].beginDate.substring(11, 16) + " EST";
+      courses[i].meetingTime = moment(courses[i].sections[0].meetings[0].beginDate);
+      courses[i].meetingTime = courses[i].meetingTime.format("hh[:]mm A [ET]");
+      //courses[i].meetingTime = courses[i].sections[0].meetings[0].beginDate.substring(11, 16) + " EST";
       courses[i].registrationNumber = courses[i].sections[0].registrationNumber;
-
+      courses[i].endingTime = moment(courses[i].sections[0].meetings[0].beginDate).add((courses[i].sections[0].meetings[0].minutesDuration),'minutes');
+      courses[i].endingTime = courses[i].endingTime.format("hh[:]mm A [ET]");
     }
 
 
@@ -80,7 +90,12 @@ async function getRandomCourses() {
         let time;
         for (k = 0; k < courses[i].sections[j].meetings.length; k++) {
           courses[i].sections[j].meetingDate += getDay(courses[i].sections[j].meetings[k].beginDate.charAt(9)) + " ";
-          courses[i].sections[j].meetingTime = courses[i].sections[j].meetings[k].beginDate.substring(11, 16) +" EST";
+          courses[i].sections[j].meetingTime = moment(courses[i].sections[j].meetings[k].beginDate);
+          courses[i].sections[j].meetingTime = courses[i].sections[j].meetingTime.format("hh[:]mm A [ET]");
+
+
+          courses[i].sections[j].endingTime = moment(courses[i].sections[j].meetings[k].beginDate).add((courses[i].sections[j].meetings[k].minutesDuration),'minutes');
+          courses[i].sections[j].endingTime = courses[i].sections[j].endingTime.format("hh[:]mm A [ET]");
         }
       }
       j = 0;
@@ -223,15 +238,18 @@ const ScheduleGenerator = () => {
       setMySections( fullSchedule);
     }
     if (answer === "No") {
-      // Replace with another core
+      mySections[2].instructor = mySections[2].instructors[0]
       setMySeminar(mySections[2]);
+
     }
 
   }
 
   return (
     <StyledSchedule>
+
       <div>
+      <center>
         Do you want to take a seminar?
         <div className="form-check">
           <label>
@@ -261,33 +279,40 @@ const ScheduleGenerator = () => {
             No
           </label>
         </div>
+      </center>
+      <br></br>
       </div>
       <Button onClick={generateSchedule}> Generate Schedule </Button>
-      <br />
+
+
       {mySections.length !== 0 && (
         <Table
           course1={mySeminar.registrationNumber}
           class1={mySeminar.name}
           date1={mySeminar.meetingDate}
           time1={mySeminar.meetingTime}
+          end1={mySeminar.endingTime}
           professor1={mySeminar.instructor}
 
           course2={mySections[0].registrationNumber}
           class2={mySections[0].name}
           date2={mySections[0].meetingDate}
           time2={mySections[0].meetingTime}
+          end2={mySections[0].endingTime}
           professor2={mySections[0].instructors[0]}
 
           course3={mySections[1].registrationNumber}
           class3={mySections[1].name}
           date3={mySections[1].meetingDate}
           time3={mySections[1].meetingTime}
+          end3={mySections[1].endingTime}
           professor3={mySections[1].instructors[0]}
 
           course4={mySections[2].registrationNumber}
           class4={mySections[2].name}
           date4={mySections[2].meetingDate}
           time4={mySections[2].meetingTime}
+          end4={mySections[2].endingTime}
           professor4={mySections[2].instructors[0]}
 
         ></Table>
