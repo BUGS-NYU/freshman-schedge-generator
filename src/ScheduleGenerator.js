@@ -139,7 +139,6 @@ async function validateRegistration(arrayOfReges, newReg) {
 }
 
 async function getMajor(chosenMajor) {
-  console.log(chosenMajor.toString());
   if (chosenMajor.toString() === "No Major") {
     return "No Major";
   }
@@ -147,7 +146,6 @@ async function getMajor(chosenMajor) {
     "https://schedge.a1liu.com/2020/FA/UA/" + chosenMajor
   );
   const majors = await data.json();
-  // console.log("majors"+majors[0].registrationNumber);
 
   let majorClass = majors[0];
   majorClass.registrationNumber = majorClass.sections[0].registrationNumber;
@@ -204,7 +202,7 @@ async function getRandomSections(
     ) {
       index1 = getRandomIndex(randomSubjectTwo.length);
       randomSectionOne = randomSubjectOne[index1];
-      console.log("conflictforFirstClass");
+      // console.log("conflictforFirstClass");
     }
 
     let index2 = getRandomIndex(randomSubjectTwo.length);
@@ -217,7 +215,7 @@ async function getRandomSections(
     ) {
       index2 = getRandomIndex(randomSubjectTwo.length);
       randomSectionTwo = randomSubjectTwo[index2];
-      console.log("conflictforSecondClass");
+      // console.log("conflictforSecondClass");
     }
 
     let index3 = getRandomIndex(randomSubjectThree.length);
@@ -234,7 +232,7 @@ async function getRandomSections(
     ) {
       index3 = getRandomIndex(randomSubjectThree.length);
       randomSectionThree = randomSubjectThree[index3];
-      console.log("conflictforThirdClass");
+      // console.log("conflictforThirdClass");
     }
 
     randomSectionArray.push(seminar);
@@ -260,7 +258,6 @@ const ScheduleGenerator = () => {
   const [chosenSeminar, setSeminar] = useState(["No Seminar"]); // what the user manually--is a name
   const [chosenMajor, setMajor] = useState("No Major");
 
-  ///////////
   const logSubjects = async (e) => {
     if (seminars.length === 0) {
       const subjects = await getAllSeminars(); // 2d array
@@ -337,7 +334,6 @@ const ScheduleGenerator = () => {
   function handleMajorChange(event) {
     event.preventDefault();
     setMajor(event.target.value);
-    console.log("changed major to " + event.target.value);
   }
 
   return (
