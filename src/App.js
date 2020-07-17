@@ -3,9 +3,9 @@ import "./App.css";
 import logo from "./logo.jpg";
 import ScheduleGenerator from "./ScheduleGenerator";
 import styled from "styled-components";
-import MajorForm from "./MajorForm";
 import StyledHeader from "./Header";
 import StyledFooter from "./Footer";
+
 
 const MainContent = styled.div`
   background-image: url("${logo}");
@@ -20,8 +20,11 @@ const MainContent = styled.div`
 const App = () => {
   return (
     <div>
-    <StyledHeader> ALBERTA</StyledHeader>
+    <StyledHeader> ALBERTA  </StyledHeader>
       <MainContent>
+      <center>
+      <h1> NYU SCHEDULE GENERATOR </h1>
+      </center>
         <ScheduleGenerator />
         <StyledFooter> </StyledFooter>
       </MainContent>
