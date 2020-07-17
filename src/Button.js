@@ -6,7 +6,7 @@ const StyledButton = styled.button`
   border: 2px solid black;
 
   color: white;
-  font-weight:bold;
+  font-weight: bold;
   width: 200px;
   height: 50px;
   font-size: 20px;
