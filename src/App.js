@@ -15,17 +15,26 @@ const MainContent = styled.div`
   align-items: center;
 `;
 
-
 const App = () => {
   return (
     <div>
-    <StyledHeader> ALBERTA  </StyledHeader>
+      <StyledHeader> ALBERTA </StyledHeader>
       <MainContent>
-      <br/><br/>
-      <center>
-      <h1 style={{fontSize:"50px",fontFamily: "Courier New",marginTop:"0px"}}> NYU CAS SCHEDULE GENERATOR </h1>
-      </center>
-      <ScheduleGenerator/>
+        <br />
+        <br />
+        <center>
+          <h1
+            style={{
+              fontSize: "50px",
+              fontFamily: "Courier New",
+              marginTop: "0px",
+            }}
+          >
+            {" "}
+            NYU CAS SCHEDULE GENERATOR{" "}
+          </h1>
+        </center>
+        <ScheduleGenerator />
         <StyledFooter> </StyledFooter>
       </MainContent>
     </div>
