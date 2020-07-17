@@ -5,6 +5,8 @@ import Table from "./Table";
 import moment from 'moment';
 import StyledSelect from "./Select"; // default import
 import StyledSchedule from "./StyledSchedule";
+import { badMajors } from "./constants";
+
 
 async function getAllCourses() {
   try {
@@ -121,8 +123,31 @@ async function validateRegistration(arrayOfReges, newReg) {
   return Boolean(checkValidSchedule["valid"]);
 }
 
-async function getRandomSections(allSubjects, chosenSeminar, allSubjectsSeminars) {
+async function getMajor(chosenMajor){
+  console.log(chosenMajor.toString());
+  if (chosenMajor.toString() === "No Major"){
+    return "No Major";
+  }
+  const data = await fetch(
+    "https://schedge.a1liu.com/2020/FA/UA/" + chosenMajor);
+  const majors = await data.json();
+  // console.log("majors"+majors[0].registrationNumber);
 
+  let majorClass = majors[0];
+  majorClass.registrationNumber = majorClass.sections[0].registrationNumber;
+  majorClass.instructors = {};
+  majorClass.instructors[0] = majorClass.sections[0].instructors[0];
+  majorClass.meetingDate = getDay(majorClass.sections[0].meetings[0].beginDate.charAt(9));
+  majorClass.meetingTime = moment(majorClass.sections[0].meetings[0].beginDate);
+  majorClass.meetingTime = majorClass.meetingTime.format("hh[:]mm A [ET]");
+  majorClass.endingTime = moment(majorClass.sections[0].meetings[0].beginDate).add((majorClass.sections[0].meetings[0].minutesDuration),'minutes');
+  majorClass.endingTime = majorClass.endingTime.format("hh[:]mm A [ET]");
+  majorClass.name = majorClass.sections[0].name;
+  return majorClass;
+}
+
+async function getRandomSections(allSubjects, chosenSeminar, allSubjectsSeminars, chosenMajor) {
+try{
   let randomSectionArray = [];
   let random = fourRandomIndices(allSubjects.length);
 
@@ -136,14 +161,16 @@ async function getRandomSections(allSubjects, chosenSeminar, allSubjectsSeminars
     let index4 = getRandomIndex(randomSubjectFour.length);
     let fakeSeminar =  randomSubjectFour[index4];
     seminar = fakeSeminar;
-    // console.log("fs" + fakeSeminar);
-    // console.log("fs" + fakeSeminar.registrationNumber);
-
     seminar.instructor = fakeSeminar.instructors[0];
   }
 
   let index1 = getRandomIndex(randomSubjectOne.length);
   let randomSectionOne = randomSubjectOne[index1];
+
+  let majorClass = await getMajor(chosenMajor);
+  if (majorClass !== "No Major"){
+    randomSectionOne = majorClass;
+  }
   while (
     !await validateRegistration( [seminar.registrationNumber], randomSectionOne.registrationNumber)
    ) {
@@ -186,16 +213,24 @@ async function getRandomSections(allSubjects, chosenSeminar, allSubjectsSeminars
 
   return randomSectionArray;
 }
+catch(e){
+  console.log(e);
+}
+}
 
 const ScheduleGenerator = () => {
   // all course options
   const [courses, setCourses] = useState([]);
   const [seminars, setSeminars] = useState([]);
+  const [majors, setMajors] = useState([]);
+
   // personal schedule
   const [mySections, setMySections] = useState([]); // all of your classes
   const [mySeminar, setMySeminar] = useState([]); // full seminar object that the person is taking
   const [chosenSeminar, setSeminar] = useState(["No Seminar"]);  // what the user manually--is a name
+  const [chosenMajor, setMajor] = useState("No Major");
 
+///////////
   const logSubjects = async (e) => {
     if (seminars.length === 0) {
       const subjects = await getAllSeminars(); // 2d array
@@ -207,32 +242,82 @@ const ScheduleGenerator = () => {
       return;
     }
   };
+
+  const logMajorSubjects = async (e) => {
+    if (majors.length === 0) {
+      const response = await fetch("https://schedge.a1liu.com/subjects");
+      const subjects = await response.json();
+
+      let noMajor = {name:"No Major"};
+
+      let keys = Object.keys(subjects["UA"]);
+      let values = Object.values(subjects["UA"]);
+
+      keys.unshift("No Major");
+      values.unshift(noMajor);
+
+      let majors = {};
+      let i;
+      for (i=0; i <keys.length; i++){
+        majors[keys[i]] = values[i];
+      }
+
+      setMajors(majors);
+
+      return;
+    }
+  };
+
   useEffect(() => { logSubjects(); }, []);
+  useEffect(() => { logMajorSubjects(); }, []);
 
   async function generateSchedule() {
     let fullSchedule;
     if (courses.length === 0) {
       const randomCourses = await getAllCourses();
       setCourses(randomCourses);
-      fullSchedule =  await getRandomSections(randomCourses, chosenSeminar, seminars);
+      fullSchedule =  await getRandomSections(randomCourses, chosenSeminar, seminars, chosenMajor);
     } else {
-      fullSchedule =  await getRandomSections(courses, chosenSeminar, seminars);
+      fullSchedule =  await getRandomSections(courses, chosenSeminar, seminars, chosenMajor);
     }
     setMySeminar( fullSchedule[0] );
     fullSchedule.shift();
     setMySections( fullSchedule);
   }
 
-  function handleChange(event) {
+  function handleSeminarChange(event) {
     event.preventDefault();
     setSeminar(event.target.value); //set choosenSeminar
+  }
+
+  function handleMajorChange(event) {
+    event.preventDefault();
+    setMajor(event.target.value);
+    console.log("changed major to "+event.target.value);
   }
 
   return (
     <StyledSchedule>
 
     <div>
-    <StyledSelect onChange={handleChange}>
+    <table>
+    <tr>
+    <td>
+    <StyledSelect onChange={handleMajorChange}>
+      {Object.entries(majors)
+        .filter(([code, major]) => !badMajors.has(code))
+        .map(([code, major]) => {
+          return (
+            <option key={code} value={code}>
+              {" "}
+              {major.name}{" "}
+            </option>
+          );
+        })}
+        </StyledSelect>
+    </td>
+    <td>
+    <StyledSelect onChange={handleSeminarChange}>
       {Object.entries(seminars)
         .map(([name, seminar]) => {
           return (
@@ -243,6 +328,9 @@ const ScheduleGenerator = () => {
           );
         })}
     </StyledSelect>
+    </td>
+    </tr>
+    </table>
     </div>
       <div>
       <br></br>

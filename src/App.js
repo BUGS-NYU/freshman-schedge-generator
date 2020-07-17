@@ -6,10 +6,9 @@ import styled from "styled-components";
 import StyledHeader from "./Header";
 import StyledFooter from "./Footer";
 
-
 const MainContent = styled.div`
   background-image: url("${logo}");
-  height: 93vh;
+  height: 100vh;
   width: 100vw;
   background-size: cover;
   background-repeat: none;
@@ -22,10 +21,11 @@ const App = () => {
     <div>
     <StyledHeader> ALBERTA  </StyledHeader>
       <MainContent>
+      <br/><br/>
       <center>
-      <h1> NYU SCHEDULE GENERATOR </h1>
+      <h1 style={{fontSize:"50px",fontFamily: "Courier New",marginTop:"0px"}}> NYU CAS SCHEDULE GENERATOR </h1>
       </center>
-        <ScheduleGenerator />
+      <ScheduleGenerator/>
         <StyledFooter> </StyledFooter>
       </MainContent>
     </div>

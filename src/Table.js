@@ -18,6 +18,12 @@ const StyledTD = styled.td`
   border: 1px solid black;
 `;
 
+const StyledTDH = styled.td`
+  padding: 10px;
+  border: 1px solid black;
+  font-weight: bold;
+`;
+
 function Table({
   course1,
   course2,
@@ -48,7 +54,7 @@ function Table({
     <StyledTable>
       <tbody>
         <tr>
-        <StyledTD>Registration #</StyledTD><StyledTD>Day(s)</StyledTD><StyledTD>Start Time</StyledTD><StyledTD>End Time</StyledTD><StyledTD>Class</StyledTD><StyledTD>Professor</StyledTD>
+        <StyledTDH>Registration Number</StyledTDH><StyledTDH>Day(s)</StyledTDH><StyledTDH>Start Time</StyledTDH><StyledTDH>End Time</StyledTDH><StyledTDH>Class</StyledTDH><StyledTDH>Professor</StyledTDH>
         </tr>
         <tr>
           <StyledTD>{course1}</StyledTD><StyledTD>{date1}</StyledTD><StyledTD>{time1}</StyledTD><StyledTD>{end1}</StyledTD><StyledTD>{class1}</StyledTD><StyledTD>{professor1}</StyledTD>
