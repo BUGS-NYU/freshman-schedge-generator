@@ -341,7 +341,7 @@ const ScheduleGenerator = () => {
       <div>
         <table>
           <tbody>
-            <tr>
+            <tr> 
               <td>
                 <StyledSelect onChange={handleMajorChange}>
                   {Object.entries(majors)
@@ -376,7 +376,9 @@ const ScheduleGenerator = () => {
         <br></br>
       </div>
       <Button onClick={generateSchedule}> Generate Schedule </Button>
-
+      <div>
+        <br></br>
+      </div>
       {mySections.length !== 0 && (
         <Table
           course1={mySeminar.registrationNumber}

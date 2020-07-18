@@ -1,0 +1,67 @@
+.App {
+    text-align: center;
+}
+
+/* Variables
+================================== */
+// @bw: 5px;  // border width
+@breakpoint: 600px;
+
+/* Tables
+================================== */
+.Rtable {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0 0 3em 0;
+  padding: 0;
+  width: 75%;
+}
+.Rtable-cell {
+  box-sizing: border-box;
+  flex-grow: 1;
+  width: 100%;  // Default to full width
+  padding: 0.8em 1.2em;
+  overflow: hidden; // Or flex might break
+  list-style: none;
+  
+  border: 2px solid black;
+  color: black;
+  background-color: #e8e6e4;
+  font-size: 20px;
+  font-family: Courier New;
+
+  > h1, > h2, > h3, > h4, > h5, > h6 { margin: 0; }
+}
+
+/* Table column sizing
+================================== */
+.Rtable--2cols > .Rtable-cell  { width: 50%; }
+.Rtable--3cols > .Rtable-cell  { width: 33.33%; }
+.Rtable--4cols > .Rtable-cell  { width: 25%; }
+.Rtable--5cols > .Rtable-cell  { width: 20%; }
+.Rtable--6cols {
+    > .Rtable-cell  { width: 16.6%; }
+    > .reg-num { width: 16.6% }
+    > .date { width: 16.6% }
+    > .start { width: 16.6% }
+    > .end { width: 16.6% }
+    > .class-name { width: 16.6% }
+    > .professor { width: 16.6% }
+}
+
+/* Responsive
+==================================== */
+@media all and (max-width: @breakpoint) {
+  .Rtable--collapse {
+    display: block;
+    > .Rtable-cell { width: 100% !important; }
+    > .Rtable-cell--foot { margin-bottom: 1em; }
+  }
+}
+
+// Non-Flex modernizer fallback
+.no-flexbox .Rtable {
+  display: block;
+  > .Rtable-cell { width: 100%; }
+  > .Rtable-cell--foot { margin-bottom: 1em; }
+}
