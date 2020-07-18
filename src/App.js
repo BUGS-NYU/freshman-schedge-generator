@@ -27,7 +27,6 @@ const App = () => {
           </h1>
         </center>
         <ScheduleGenerator />
-        <StyledFooter> </StyledFooter>
       </MainContent>
     </div>
   );
