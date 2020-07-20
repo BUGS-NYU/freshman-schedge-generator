@@ -5,8 +5,6 @@ body {
   padding: 0;
   margin: 0;
   display: flex;
-  /* justify-content: center; */
-  /* overflow: auto; */
   overflow-x: hidden;
 }
 
