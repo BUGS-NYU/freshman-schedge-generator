@@ -3,32 +3,28 @@ import "./App.css";
 import ScheduleGenerator from "./ScheduleGenerator";
 import styled from "styled-components";
 import StyledHeader from "./Header";
-import StyledFooter from "./Footer";
 
-const MainContent = styled.div``;
+const AllContent = styled.div`
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+`;
+
+const StyledTitle = styled.h1`
+  font-size: 50px;
+  font-family: Courier New;
+  margin-top: 30px;
+  margin-bottom: 10px;
+  text-align: center;
+`;
 
 const App = () => {
   return (
-    <div>
+    <AllContent>
       <StyledHeader> ALBERTA </StyledHeader>
-      <MainContent>
-        <br />
-        <br />
-        <center>
-          <h1
-            style={{
-              fontSize: "50px",
-              fontFamily: "Courier New",
-              marginTop: "0px",
-            }}
-          >
-            {" "}
-            NYU CAS SCHEDULE GENERATOR{" "}
-          </h1>
-        </center>
-        <ScheduleGenerator />
-      </MainContent>
-    </div>
+      <StyledTitle>NYU CAS SCHEDULE GENERATOR</StyledTitle>
+      <ScheduleGenerator />
+    </AllContent>
   );
 };
 
