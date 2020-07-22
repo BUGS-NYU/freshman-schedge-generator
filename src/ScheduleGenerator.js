@@ -1,19 +1,13 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Button from "./Button";
-import styled from "styled-components";
+// import styled from "styled-components";
+import Table from "./Table";
+import moment from "moment";
+import StyledSelect from "./Select"; // default import
+import StyledSchedule from "./StyledSchedule";
+import { badMajors } from "./constants";
 
-const StyledSchedule = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 10px;
-`;
-
-const StyledScheduleOutput = styled.div`
-  display: flex;
-`;
-
-async function getRandomCourses() {
+async function getAllCourses() {
   try {
     const data = await fetch("https://schedge.a1liu.com/2020/FA/UA/CORE");
     // awaits for the promise to return the data
@@ -30,6 +24,33 @@ async function getRandomCourses() {
 
     for (i = 0; i < courses.length; i++) {
       const id = parseInt(courses[i].deptCourseId);
+
+      let j = 0;
+      for (j = 0; j < courses[i].sections.length; j++) {
+        courses[i].sections[j].sectionID = id;
+
+        courses[i].sections[j].meetingDate = "";
+        let k;
+        for (k = 0; k < courses[i].sections[j].meetings.length; k++) {
+          courses[i].sections[j].meetingDate +=
+            getDay(courses[i].sections[j].meetings[k].beginDate.charAt(9)) +
+            " ";
+          courses[i].sections[j].meetingTime = moment(
+            courses[i].sections[j].meetings[k].beginDate
+          );
+          courses[i].sections[j].meetingTime = courses[i].sections[
+            j
+          ].meetingTime.format("hh[:]mm A [ET]");
+
+          courses[i].sections[j].endingTime = moment(
+            courses[i].sections[j].meetings[k].beginDate
+          ).add(courses[i].sections[j].meetings[k].minutesDuration, "minutes");
+          courses[i].sections[j].endingTime = courses[i].sections[
+            j
+          ].endingTime.format("hh[:]mm A [ET]");
+        }
+      }
+      j = 0;
 
       if (id < 300 && id >= 200) {
         physicalScience = physicalScience.concat(courses[i].sections);
@@ -63,65 +84,357 @@ async function getRandomCourses() {
   }
 }
 
-function getRandomSections(allSubjects) {
-  let randomSectionArray = [];
+async function getAllSeminars() {
+  try {
+    const data = await fetch("https://schedge.a1liu.com/2020/FA/UA/FYSEM");
+    // awaits for the promise to return the data
+    const courses = await data.json();
 
-  let random = twoRandomIndices(allSubjects.length);
+    for (let i = 0; i < courses.length; i++) {
+      const id = parseInt(courses[i].deptCourseId);
+      courses[i].sectionID = id;
+      courses[i].instructor = courses[i].sections[0].instructors[0];
+      courses[i].meetingDate = getDay(
+        courses[i].sections[0].meetings[0].beginDate.charAt(9)
+      );
+      courses[i].meetingTime = moment(
+        courses[i].sections[0].meetings[0].beginDate
+      );
+      courses[i].meetingTime = courses[i].meetingTime.format("hh[:]mm A [ET]");
+      courses[i].registrationNumber = courses[i].sections[0].registrationNumber;
+      courses[i].endingTime = moment(
+        courses[i].sections[0].meetings[0].beginDate
+      ).add(courses[i].sections[0].meetings[0].minutesDuration, "minutes");
+      courses[i].endingTime = courses[i].endingTime.format("hh[:]mm A [ET]");
+    }
 
-  let randomSubjectOne = allSubjects[random[0]];
-  let randomSubjectTwo = allSubjects[random[1]];
+    return courses;
+  } catch (e) {
+    console.log(e);
+    return undefined;
+  }
+}
 
-  let randomSectionOne =
-    randomSubjectOne[getRandomIndex(randomSubjectOne.length)];
-  let randomSectionTwo =
-    randomSubjectTwo[getRandomIndex(randomSubjectTwo.length)];
+function findSeminar(chosenSeminar, seminars) {
+  //assuming its 1d
+  if (chosenSeminar.toString() === "No Seminar") {
+    return "";
+  }
+  let i;
+  for (i = 0; i < seminars.length; i++) {
+    if (chosenSeminar === seminars[i].name) {
+      return seminars[i];
+    }
+  }
+}
 
-  randomSectionArray.push(randomSectionOne);
-  randomSectionArray.push(randomSectionTwo);
+async function validateRegistration(arrayOfReges, newReg) {
+  let allReges = arrayOfReges.join(",") + "," + newReg;
+  const data = await fetch(
+    "https://schedge.a1liu.com/2020/FA/generateSchedule?registrationNumbers=" +
+      allReges
+  );
+  const checkValidSchedule = await data.json();
+  return Boolean(checkValidSchedule["valid"]);
+}
 
-  return randomSectionArray;
+async function getMajor(chosenMajor) {
+  if (chosenMajor.toString() === "No Major") {
+    return "No Major";
+  }
+  const data = await fetch(
+    "https://schedge.a1liu.com/2020/FA/UA/" + chosenMajor
+  );
+  const majors = await data.json();
+
+  let majorClass = majors[0];
+  majorClass.registrationNumber = majorClass.sections[0].registrationNumber;
+  majorClass.instructors = {};
+  majorClass.instructors[0] = majorClass.sections[0].instructors[0];
+  majorClass.meetingDate = getDay(
+    majorClass.sections[0].meetings[0].beginDate.charAt(9)
+  );
+  majorClass.meetingTime = moment(majorClass.sections[0].meetings[0].beginDate);
+  majorClass.meetingTime = majorClass.meetingTime.format("hh[:]mm A [ET]");
+  majorClass.endingTime = moment(
+    majorClass.sections[0].meetings[0].beginDate
+  ).add(majorClass.sections[0].meetings[0].minutesDuration, "minutes");
+  majorClass.endingTime = majorClass.endingTime.format("hh[:]mm A [ET]");
+  majorClass.name = majorClass.sections[0].name;
+  return majorClass;
+}
+
+async function getRandomSections(
+  allSubjects,
+  chosenSeminar,
+  allSubjectsSeminars,
+  chosenMajor
+) {
+  try {
+    let randomSectionArray = [];
+    let random = fourRandomIndices(allSubjects.length);
+
+    let seminar = findSeminar(chosenSeminar, allSubjectsSeminars);
+    let randomSubjectOne = allSubjects[random[0]];
+    let randomSubjectTwo = allSubjects[random[1]];
+    let randomSubjectThree = allSubjects[random[2]];
+
+    if (seminar === "") {
+      let randomSubjectFour = allSubjects[random[3]];
+      let index4 = getRandomIndex(randomSubjectFour.length);
+      let fakeSeminar = randomSubjectFour[index4];
+      seminar = fakeSeminar;
+      seminar.instructor = fakeSeminar.instructors[0];
+    }
+
+    let index1 = getRandomIndex(randomSubjectOne.length);
+    let randomSectionOne = randomSubjectOne[index1];
+
+    let majorClass = await getMajor(chosenMajor);
+    if (majorClass !== "No Major") {
+      randomSectionOne = majorClass;
+    }
+    while (
+      !(await validateRegistration(
+        [seminar.registrationNumber],
+        randomSectionOne.registrationNumber
+      ))
+    ) {
+      index1 = getRandomIndex(randomSubjectTwo.length);
+      randomSectionOne = randomSubjectOne[index1];
+      // console.log("conflictforFirstClass");
+    }
+
+    let index2 = getRandomIndex(randomSubjectTwo.length);
+    let randomSectionTwo = randomSubjectTwo[index2];
+    while (
+      !(await validateRegistration(
+        [seminar.registrationNumber, randomSectionOne.registrationNumber],
+        randomSectionTwo.registrationNumber
+      ))
+    ) {
+      index2 = getRandomIndex(randomSubjectTwo.length);
+      randomSectionTwo = randomSubjectTwo[index2];
+      // console.log("conflictforSecondClass");
+    }
+
+    let index3 = getRandomIndex(randomSubjectThree.length);
+    let randomSectionThree = randomSubjectThree[index3];
+    while (
+      !(await validateRegistration(
+        [
+          seminar.registrationNumber,
+          randomSectionOne.registrationNumber,
+          randomSectionTwo.registrationNumber,
+        ],
+        randomSectionThree.registrationNumber
+      ))
+    ) {
+      index3 = getRandomIndex(randomSubjectThree.length);
+      randomSectionThree = randomSubjectThree[index3];
+      // console.log("conflictforThirdClass");
+    }
+
+    randomSectionArray.push(seminar);
+    randomSectionArray.push(randomSectionOne);
+    randomSectionArray.push(randomSectionTwo);
+    randomSectionArray.push(randomSectionThree);
+
+    return randomSectionArray;
+  } catch (e) {
+    console.log(e);
+  }
 }
 
 const ScheduleGenerator = () => {
+  // all course options
   const [courses, setCourses] = useState([]);
-  const [randomSection, setRandomSection] = useState([]);
+  const [seminars, setSeminars] = useState([]);
+  const [majors, setMajors] = useState([]);
+
+  // personal schedule
+  const [mySections, setMySections] = useState([]); // all of your classes
+  const [mySeminar, setMySeminar] = useState([]); // full seminar object that the person is taking
+  const [chosenSeminar, setSeminar] = useState(["No Seminar"]); // what the user manually--is a name
+  const [chosenMajor, setMajor] = useState("No Major");
+
+  const logSubjects = async (e) => {
+    if (seminars.length === 0) {
+      const subjects = await getAllSeminars(); // 2d array
+
+      let noSeminar = { name: "No Seminar" };
+      subjects.unshift(noSeminar);
+
+      setSeminars(subjects);
+      return;
+    }
+  };
+
+  const logMajorSubjects = async (e) => {
+    if (majors.length === 0) {
+      const response = await fetch("https://schedge.a1liu.com/subjects");
+      const subjects = await response.json();
+
+      let noMajor = { name: "No Major" };
+
+      let keys = Object.keys(subjects["UA"]);
+      let values = Object.values(subjects["UA"]);
+
+      keys.unshift("No Major");
+      values.unshift(noMajor);
+
+      let majors = {};
+      let i;
+      for (i = 0; i < keys.length; i++) {
+        majors[keys[i]] = values[i];
+      }
+
+      setMajors(majors);
+
+      return;
+    }
+  };
+
+  useEffect(() => {
+    logSubjects();
+  }, []);
+  useEffect(() => {
+    logMajorSubjects();
+  }, []);
 
   async function generateSchedule() {
+    let fullSchedule;
     if (courses.length === 0) {
-      const randomArray = await getRandomCourses();
-      setCourses(randomArray);
-      setRandomSection(getRandomSections(randomArray));
+      const randomCourses = await getAllCourses();
+      setCourses(randomCourses);
+      fullSchedule = await getRandomSections(
+        randomCourses,
+        chosenSeminar,
+        seminars,
+        chosenMajor
+      );
     } else {
-      setRandomSection(getRandomSections(courses));
+      fullSchedule = await getRandomSections(
+        courses,
+        chosenSeminar,
+        seminars,
+        chosenMajor
+      );
     }
+    setMySeminar(fullSchedule[0]);
+    fullSchedule.shift();
+    setMySections(fullSchedule);
   }
+
+  function handleSeminarChange(event) {
+    event.preventDefault();
+    setSeminar(event.target.value); //set choosenSeminar
+  }
+
+  function handleMajorChange(event) {
+    event.preventDefault();
+    setMajor(event.target.value);
+  }
+
   return (
     <StyledSchedule>
+      <div>
+        <table>
+          <tbody>
+            <tr> 
+              <td>
+                <StyledSelect onChange={handleMajorChange}>
+                  {Object.entries(majors)
+                    .filter(([code, major]) => !badMajors.has(code))
+                    .map(([code, major]) => {
+                      return (
+                        <option key={code} value={code}>
+                          {" "}
+                          {major.name}{" "}
+                        </option>
+                      );
+                    })}
+                </StyledSelect>
+              </td>
+              <td>
+                <StyledSelect onChange={handleSeminarChange}>
+                  {Object.entries(seminars).map(([name, seminar]) => {
+                    return (
+                      <option key={seminar.name} value={seminar.name}>
+                        {" "}
+                        {seminar.name}{" "}
+                      </option>
+                    );
+                  })}
+                </StyledSelect>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div>
+        <br></br>
+      </div>
       <Button onClick={generateSchedule}> Generate Schedule </Button>
-      <StyledScheduleOutput>
-        {randomSection.map((subject) => (<div key = {subject.courseNum}> {subject.name} </div>))}
-      </StyledScheduleOutput>
+      <div>
+        <br></br>
+      </div>
+      {mySections.length !== 0 && (
+        <Table
+          course1={mySeminar.registrationNumber}
+          class1={mySeminar.name}
+          date1={mySeminar.meetingDate}
+          time1={mySeminar.meetingTime}
+          end1={mySeminar.endingTime}
+          professor1={mySeminar.instructor}
+          course2={mySections[0].registrationNumber}
+          class2={mySections[0].name}
+          date2={mySections[0].meetingDate}
+          time2={mySections[0].meetingTime}
+          end2={mySections[0].endingTime}
+          professor2={mySections[0].instructors[0]}
+          course3={mySections[1].registrationNumber}
+          class3={mySections[1].name}
+          date3={mySections[1].meetingDate}
+          time3={mySections[1].meetingTime}
+          end3={mySections[1].endingTime}
+          professor3={mySections[1].instructors[0]}
+          course4={mySections[2].registrationNumber}
+          class4={mySections[2].name}
+          date4={mySections[2].meetingDate}
+          time4={mySections[2].meetingTime}
+          end4={mySections[2].endingTime}
+          professor4={mySections[2].instructors[0]}
+        ></Table>
+      )}
     </StyledSchedule>
   );
 };
+
+// Calculations Functions
+function getDay(beginDate) {
+  if (beginDate === "2") {
+    return "Wed";
+  } else if (beginDate === "3") {
+    return "Thur";
+  } else if (beginDate === "4") {
+    return "Fri";
+  } else if (beginDate === "7") {
+    return "Mon";
+  }
+  return "Tues";
+}
 
 function getRandomIndex(size) {
   return Math.floor(Math.random() * size);
 }
 
-function twoRandomIndices(size) {
+function fourRandomIndices(size) {
   const one = Math.floor(Math.random() * size);
-  let two = Math.floor(Math.random() * size);
-
-  let counter = 0;
-  for (; one === two && counter < 10; counter++) {
-    two = Math.floor(Math.random() * size);
-  }
-
-  two = (one + 1) % size;
-  return [one, two];
+  let two = (one + 1) % size;
+  let three = (two + 1) % size;
+  let four = (three + 1) % size;
+  return [one, two, three, four];
 }
-
-// async functions always return a promise
 
 export default ScheduleGenerator;

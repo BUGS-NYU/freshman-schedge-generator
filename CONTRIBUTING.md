@@ -18,7 +18,7 @@ Please fork the repository from Github and clone a local copy to your machine. A
 git clone https://github.com/{YOUR-USER-NAME}/freshman-schedge-generator.git
 ```
 
-Then following these command if you haven't had any installed. 
+Then following these command if you haven't had any installed.
 
 ## Installation
 
@@ -26,7 +26,7 @@ Then following these command if you haven't had any installed.
 If you have [homebrew](https://brew.sh/). If not, please go to the website and install homebrew. Then install node.
 
 ```
-brew install node 
+brew install node
 ```
 
 Then cd into the local copy you have made and run
@@ -54,6 +54,5 @@ Every PR will be considered.
 - Making sure that the code compiles and test your code.
 
 ## Comment Annotations
-- If there is any code pieces with abbreviation, please don't assume other users would understand. 
+- If there is any code pieces with abbreviation, please don't assume other users would understand.
 - Leave a comment if you think a comment would be necessary to understand your code.
-

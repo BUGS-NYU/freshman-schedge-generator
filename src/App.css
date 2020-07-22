@@ -1,39 +1,92 @@
 .App {
   text-align: center;
 }
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+/* Variables
+================================== */
+/* Tables
+================================== */
+.Rtable {
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  flex-wrap: wrap;
+  margin: 0 0 3em 0;
+  padding: 0;
+  width: 75%;
 }
-
-.App-link {
-  color: #61dafb;
+.Rtable-cell {
+  box-sizing: border-box;
+  flex-grow: 1;
+  width: 100%;
+  padding: 0.8em 1.2em;
+  overflow: hidden;
+  list-style: none;
+  border: 2px solid black;
+  color: black;
+  background-color: #e8e6e4;
+  font-size: 20px;
+  font-family: Courier New;
 }
-
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+.Rtable-cell > h1,
+.Rtable-cell > h2,
+.Rtable-cell > h3,
+.Rtable-cell > h4,
+.Rtable-cell > h5,
+.Rtable-cell > h6 {
+  margin: 0;
+}
+/* Table column sizing
+================================== */
+.Rtable--2cols > .Rtable-cell {
+  width: 50%;
+}
+.Rtable--3cols > .Rtable-cell {
+  width: 33.33%;
+}
+.Rtable--4cols > .Rtable-cell {
+  width: 25%;
+}
+.Rtable--5cols > .Rtable-cell {
+  width: 20%;
+}
+.Rtable--6cols > .Rtable-cell {
+  width: 16.6%;
+}
+.Rtable--6cols > .reg-num {
+  width: 16.6%;
+}
+.Rtable--6cols > .date {
+  width: 16.6%;
+}
+.Rtable--6cols > .start {
+  width: 16.6%;
+}
+.Rtable--6cols > .end {
+  width: 16.6%;
+}
+.Rtable--6cols > .class-name {
+  width: 16.6%;
+}
+.Rtable--6cols > .professor {
+  width: 16.6%;
+}
+/* Responsive
+==================================== */
+@media all and (max-width: 600px) {
+  .Rtable--collapse {
+    display: block;
   }
-  to {
-    transform: rotate(360deg);
+  .Rtable--collapse > .Rtable-cell {
+    width: 100% !important;
   }
+  .Rtable--collapse > .Rtable-cell--foot {
+    margin-bottom: 1em;
+  }
+}
+.no-flexbox .Rtable {
+  display: block;
+}
+.no-flexbox .Rtable > .Rtable-cell {
+  width: 100%;
+}
+.no-flexbox .Rtable > .Rtable-cell--foot {
+  margin-bottom: 1em;
 }

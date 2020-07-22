@@ -1,31 +1,30 @@
 import React from "react";
 import "./App.css";
-import logo from "./logo.jpg";
 import ScheduleGenerator from "./ScheduleGenerator";
 import styled from "styled-components";
-import Majors from "./Majors";
-import SeminarForm from "./SeminarForm";
-
-import MajorForm from "./MajorForm";
 import StyledHeader from "./Header";
 
-const MainContent = styled.div`
-  background-image: url("${logo}");
-  background-repeat: cover;
-  height: calc(100vh - 50px);
+const AllContent = styled.div`
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+`;
+
+const StyledTitle = styled.h1`
+  font-size: 50px;
+  font-family: Courier New;
+  margin-top: 30px;
+  margin-bottom: 10px;
+  text-align: center;
 `;
 
 const App = () => {
   return (
-    <div>
-      <StyledHeader> ALBERTA</StyledHeader>
-      <MainContent>
-        <MajorForm></MajorForm>
-        <SeminarForm />
-        <Majors></Majors>
-        <ScheduleGenerator />
-      </MainContent>
-    </div>
+    <AllContent>
+      <StyledHeader> ALBERTA </StyledHeader>
+      <StyledTitle>NYU CAS SCHEDULE GENERATOR</StyledTitle>
+      <ScheduleGenerator />
+    </AllContent>
   );
 };
 
