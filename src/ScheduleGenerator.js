@@ -341,7 +341,7 @@ const ScheduleGenerator = () => {
       <div>
         <table>
           <tbody>
-            <tr> 
+            <tr>
               <td>
                 <StyledSelect onChange={handleMajorChange}>
                   {Object.entries(majors)
@@ -372,39 +372,43 @@ const ScheduleGenerator = () => {
           </tbody>
         </table>
       </div>
-      <div>
-        <br></br>
-      </div>
       <Button onClick={generateSchedule}> Generate Schedule </Button>
-      <div>
-        <br></br>
-      </div>
       {mySections.length !== 0 && (
         <Table
-          course1={mySeminar.registrationNumber}
-          class1={mySeminar.name}
-          date1={mySeminar.meetingDate}
-          time1={mySeminar.meetingTime}
-          end1={mySeminar.endingTime}
-          professor1={mySeminar.instructor}
-          course2={mySections[0].registrationNumber}
-          class2={mySections[0].name}
-          date2={mySections[0].meetingDate}
-          time2={mySections[0].meetingTime}
-          end2={mySections[0].endingTime}
-          professor2={mySections[0].instructors[0]}
-          course3={mySections[1].registrationNumber}
-          class3={mySections[1].name}
-          date3={mySections[1].meetingDate}
-          time3={mySections[1].meetingTime}
-          end3={mySections[1].endingTime}
-          professor3={mySections[1].instructors[0]}
-          course4={mySections[2].registrationNumber}
-          class4={mySections[2].name}
-          date4={mySections[2].meetingDate}
-          time4={mySections[2].meetingTime}
-          end4={mySections[2].endingTime}
-          professor4={mySections[2].instructors[0]}
+          courses={{
+            firstCourse: {
+              regNumber: mySeminar.registrationNumber,
+              className: mySeminar.name,
+              date: mySeminar.meetingDate,
+              start: mySeminar.meetingTime,
+              end: mySeminar.endingTime,
+              instructor: mySeminar.instructor,
+            },
+            secondCourse: {
+              regNumber: mySections[0].registrationNumber,
+              className: mySections[0].name,
+              date: mySections[0].meetingDate,
+              start: mySections[0].meetingTime,
+              end: mySections[0].endingTime,
+              instructor: mySections[0].instructors[0],
+            },
+            thirdCourse: {
+              regNumber: mySections[1].registrationNumber,
+              className: mySections[1].name,
+              date: mySections[1].meetingDate,
+              start: mySections[1].meetingTime,
+              end: mySections[1].endingTime,
+              instructor: mySections[1].instructors[0],
+            },
+            fourthCourse: {
+              regNumber: mySections[2].registrationNumber,
+              className: mySections[2].name,
+              date: mySections[2].meetingDate,
+              start: mySections[2].meetingTime,
+              end: mySections[2].endingTime,
+              instructor: mySections[2].instructors[0],
+            },
+          }}
         ></Table>
       )}
     </StyledSchedule>

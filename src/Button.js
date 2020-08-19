@@ -14,6 +14,8 @@ const StyledButton = styled.button`
   font-family: Courier New;
   text-transform: uppercase;
   transition: 0.2s filter;
+  margin: 0 0 20px 0;
+  cursor: pointer;
   :hover {
     filter: brightness(75%);
   }

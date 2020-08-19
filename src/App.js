@@ -18,10 +18,18 @@ const StyledTitle = styled.h1`
   text-align: center;
 `;
 
+const HomeLink = styled.a`
+  text-decoration: none;
+  color: white;
+`;
+
 const App = () => {
   return (
     <AllContent>
-      <StyledHeader> ALBERTA </StyledHeader>
+      <StyledHeader>
+        {" "}
+        <HomeLink href="/">ALBERTA</HomeLink>{" "}
+      </StyledHeader>
       <StyledTitle>NYU CAS SCHEDULE GENERATOR</StyledTitle>
       <ScheduleGenerator />
     </AllContent>
