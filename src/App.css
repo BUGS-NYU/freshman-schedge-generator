@@ -5,12 +5,25 @@
 ================================== */
 /* Tables
 ================================== */
+@keyframes slideTop{
+  from {
+    transform: translateY(100%)
+  }
+  to {
+    transform: translateY(0%);
+  }
+}
+
 .Rtable {
   display: flex;
   flex-wrap: wrap;
-  margin: 0 0 3em 0;
+  margin: 0 25px 3em 0;
+  height: 80vh;
   padding: 0;
-  width: 75%;
+  width: 90vw;
+  animation: slideTop 1s;
+  border: 2px solid #330662;
+  box-shadow: 0 2px 4px 0;
 }
 .Rtable-cell {
   box-sizing: border-box;
@@ -19,7 +32,7 @@
   padding: 0.8em 1.2em;
   overflow: hidden;
   list-style: none;
-  border: 2px solid black;
+  border: 1px solid black;
   color: black;
   background-color: #e8e6e4;
   font-size: 20px;
@@ -51,10 +64,10 @@
   width: 16.6%;
 }
 .Rtable--6cols > .reg-num {
-  width: 16.6%;
+  width: 12%;
 }
 .Rtable--6cols > .date {
-  width: 16.6%;
+  width: 14%;
 }
 .Rtable--6cols > .start {
   width: 16.6%;
@@ -63,19 +76,22 @@
   width: 16.6%;
 }
 .Rtable--6cols > .class-name {
-  width: 16.6%;
+  width: 20%;
 }
 .Rtable--6cols > .professor {
-  width: 16.6%;
+  width: 20%;
 }
 /* Responsive
 ==================================== */
-@media all and (max-width: 600px) {
+@media all and (max-width: 768px) {
   .Rtable--collapse {
     display: block;
+    border: none;
+    box-shadow: none;
   }
   .Rtable--collapse > .Rtable-cell {
     width: 100% !important;
+    box-shadow: 0 4px 6px 0 #330662;
   }
   .Rtable--collapse > .Rtable-cell--foot {
     margin-bottom: 1em;

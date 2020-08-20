@@ -1,7 +1,7 @@
 import React from "react";
 import "./App.css";
 import ScheduleGenerator from "./ScheduleGenerator";
-import styled from "styled-components";
+import styled, {keyframes} from "styled-components";
 import StyledHeader from "./Header";
 
 const AllContent = styled.div`
@@ -10,12 +10,23 @@ const AllContent = styled.div`
   flex-direction: column;
 `;
 
+const scalein = keyframes`
+  from {
+    transform: scale(0.9);
+  }
+  to {
+    transform: scale(1);
+  }
+`
+
 const StyledTitle = styled.h1`
   font-size: 50px;
   font-family: Courier New;
   margin-top: 30px;
   margin-bottom: 10px;
   text-align: center;
+  color: #330662;
+  animation: ${scalein} 1s;
 `;
 
 const HomeLink = styled.a`

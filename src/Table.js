@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 
 const Course = ({ course }) => {
+  // convert this to styled components;
   return (
     <>
       <div className="Rtable-cell reg-num Rtable-cell--head">

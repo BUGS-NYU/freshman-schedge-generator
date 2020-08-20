@@ -321,14 +321,16 @@ const ScheduleGenerator = () => {
         chosenMajor
       );
     }
-    setMySeminar(fullSchedule[0]);
-    fullSchedule.shift();
-    setMySections(fullSchedule);
+    if(fullSchedule !== undefined) {
+      setMySeminar(fullSchedule[0]);
+      fullSchedule.shift();
+      setMySections(fullSchedule);
+    }
   }
 
   function handleSeminarChange(event) {
     event.preventDefault();
-    setSeminar(event.target.value); //set choosenSeminar
+    setSeminar(event.target.value); 
   }
 
   function handleMajorChange(event) {
