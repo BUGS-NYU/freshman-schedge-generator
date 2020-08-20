@@ -1,0 +1,23 @@
+{
+  "files": {
+    "main.css": "/freshman-schedge-generator/static/css/main.6b3bbc1d.chunk.css",
+    "main.js": "/freshman-schedge-generator/static/js/main.533a4736.chunk.js",
+    "main.js.map": "/freshman-schedge-generator/static/js/main.533a4736.chunk.js.map",
+    "runtime-main.js": "/freshman-schedge-generator/static/js/runtime-main.c658d491.js",
+    "runtime-main.js.map": "/freshman-schedge-generator/static/js/runtime-main.c658d491.js.map",
+    "static/js/2.05dedfdb.chunk.js": "/freshman-schedge-generator/static/js/2.05dedfdb.chunk.js",
+    "static/js/2.05dedfdb.chunk.js.map": "/freshman-schedge-generator/static/js/2.05dedfdb.chunk.js.map",
+    "index.html": "/freshman-schedge-generator/index.html",
+    "precache-manifest.1c91ff1310395a724adb6f0bfe3cd060.js": "/freshman-schedge-generator/precache-manifest.1c91ff1310395a724adb6f0bfe3cd060.js",
+    "service-worker.js": "/freshman-schedge-generator/service-worker.js",
+    "static/css/main.6b3bbc1d.chunk.css.map": "/freshman-schedge-generator/static/css/main.6b3bbc1d.chunk.css.map",
+    "static/js/2.05dedfdb.chunk.js.LICENSE.txt": "/freshman-schedge-generator/static/js/2.05dedfdb.chunk.js.LICENSE.txt",
+    "static/media/index.css": "/freshman-schedge-generator/static/media/logo.57d5eecb.jpg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.c658d491.js",
+    "static/js/2.05dedfdb.chunk.js",
+    "static/css/main.6b3bbc1d.chunk.css",
+    "static/js/main.533a4736.chunk.js"
+  ]
+}
