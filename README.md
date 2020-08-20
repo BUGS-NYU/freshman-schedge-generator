@@ -1,5 +1,8 @@
 # Freshman Schedge Generator
 
+## Website
+The website is hosted personally by the team at [alberta.ml](https://alberta.ml) or [BUGS website](https://bugs-nyu.github.io/freshman-schedge-generator/).
+
 ## Introduction
 
 Freshman Schedge Generator is a front-end project using [Schedge API](https://github.com/BUGS-NYU/schedge), to develop a website to automatically generate freshman schedule for NYU CAS student. The project serve as a collaborative effort between NYU students. We want to offer this as a learning experience for new programmers to learn about web application development as well as open source contributions. 
