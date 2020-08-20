@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/freshman-schedge-generator/precache-manifest.1c91ff1310395a724adb6f0bfe3cd060.js"
+  "/freshman-schedge-generator/precache-manifest.ef08f6c8de3eb80e816178ba62a93a89.js"
 );
 
 self.addEventListener('message', (event) => {
